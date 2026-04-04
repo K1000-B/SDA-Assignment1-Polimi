@@ -1,0 +1,31 @@
+\setlength{\footskip}{33pt}
+\author{DE SANTA COLOMA Diego\and BRIARD Camile}
+\date{27 janvier 2025}
+% Configuration des en-têtes et pieds de page
+\pagestyle{fancy}
+\fancyhf{}
+% En-tête
+\fancyhead[L]{\color{customblue}\leftmark}
+\fancyhead[R]{\color{customblue}PROJET D'OPTION}
+
+% Pied de page
+\fancyfoot[L]{\color{customblue}\theauthor}
+\fancyfoot[R]{\color{customblue}\thepage}
+
+
+
+% Couleur du trait du pied de page
+\renewcommand{\footrulewidth}{0.4pt} % Épaisseur du trait
+\renewcommand{\footruleskip}{5pt}    % Espace entre le trait et le texte
+\renewcommand{\footrule}{\color{customblue}\hrule width\headwidth height\footrulewidth} % Couleur du trait
+
+\newcommand{\parttitle}{}% Espace entre le trait et le texte du pied de page
+\renewcommand{\leftmark}{\parttitle }
+\newcommand{\encadrage}{
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw[thick] ([shift={(0.5cm, -0.5cm)}]current page.north west) rectangle ([shift={(-0.5cm, 0.5cm)}]current page.south east);
+    \end{tikzpicture}}
+
+
+%Glossaire
+% \newacronym{label}{abréviation}{signification}

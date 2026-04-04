@@ -1,0 +1,205 @@
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[top=2cm, bottom=2cm, left=1.2cm, right=1.2cm, headheight=1cm, headsep=0.5cm, footskip=3cm]{geometry}
+
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{amsmath, amsfonts, amssymb, amsxtra}
+\usepackage{stmaryrd}
+\usepackage{titling}
+\usepackage{empheq}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage[in]{fullpage}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{textcomp}
+\usepackage{booktabs}
+\usepackage{listings}
+
+\usepackage[table,xcdraw]{xcolor}
+\definecolor{customblue}{HTML}{102648}
+\usepackage{dsfont}
+\usepackage{mathtools}
+\usepackage{pdflscape}
+\usepackage{arydshln}
+\usepackage{blindtext}
+\usepackage{matlab-prettifier}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true, allcolors=codeblue]{hyperref}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{glossaries}
+\makeglossaries
+\usepackage{textcomp}
+
+
+% Utilisation d'une police plus légère
+% \usepackage[scaled=0.92]{helvet}
+% \renewcommand{\familydefault}{\sfdefault}
+
+% Paramètres de géométrie
+\geometry{letterpaper}
+
+% Définition des couleurs
+\definecolor{codegreen}{HTML}{067d17}
+\definecolor{commentgray}{HTML}{8c8c8c}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{HTML}{0A39DB}
+\definecolor{backcolour}{HTML}{fff9ff}
+
+% Configuration du style Python pour listings
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{commentgray}\itshape,
+    keywordstyle=\color{codeblue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    identifierstyle=\color{black},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    frame=single,
+    rulecolor=\color{codegray},
+    literate={
+        *{0}{{{\color{codeblue}0}}}{1}%
+        {1}{{{\color{codeblue}1}}}{1}%
+        {2}{{{\color{codeblue}2}}}{1}%
+        {3}{{{\color{codeblue}3}}}{1}%
+        {4}{{{\color{codeblue}4}}}{1}%
+        {5}{{{\color{codeblue}5}}}{1}%
+        {6}{{{\color{codeblue}6}}}{1}%
+        {7}{{{\color{codeblue}7}}}{1}%
+        {8}{{{\color{codeblue}8}}}{1}%
+        {9}{{{\color{codeblue}9}}}{1}%
+    }
+}
+
+% Mots-clés Python (exhaustif)
+\lstset{
+    language=Python,
+    style=pythonstyle,
+    morekeywords={
+        False, None, True, and, as, assert, async, await, break, class,
+        continue, def, del, elif, else, except, finally, for, from, global,
+        if, import, in, is, lambda, nonlocal, not, or, pass, raise, return,
+        try, while, with, yield
+    },
+    morekeywords=[2]{self}, % Spécialisation pour Python
+    morekeywords=[3]{__init__, __name__, __main__, print, input, open, close, read, write, append},
+    keywordstyle={[2]\color{codegray}\bfseries},
+    keywordstyle={[3]\color{codegreen}\itshape}
+}
+
+% Commandes personnalisées
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\newcommand{\AN}{\underline{AN}:\,}
+\newcommand{\cellgrey}{\cellcolor[HTML]{f2f2f2}}
+
+% Encodage des caractères Unicode
+\lstset{literate=%
+{é}{{\'e}}{1}%
+{è}{{\`e}}{1}%
+{à}{{\`a}}{1}%
+{ç}{{\c{c}}}{1}%
+{œ}{{\oe}}{1}%
+{ù}{{\`u}}{1}%
+{É}{{\'E}}{1}%
+{È}{{\`E}}{1}%
+{À}{{\`A}}{1}%
+{Ç}{{\c{C}}}{1}%
+{Œ}{{\OE}}{1}%
+{Ê}{{\^E}}{1}%
+{ê}{{\^e}}{1}%
+{î}{{\^i}}{1}%
+{ô}{{\^o}}{1}%
+{û}{{\^u}}{1}%
+{ä}{{\"{a}}}1
+{ë}{{\"{e}}}1
+{ï}{{\"{i}}}1
+{ö}{{\"{o}}}1
+{ü}{{\"{u}}}1
+{û}{{\^{u}}}1
+{â}{{\^{a}}}1
+{Â}{{\^{A}}}1
+{Î}{{\^{I}}}1
+}
+
+% Utilisation de caractères cyrilliques
+\input cyracc.def
+\font\tencyr=wncysc10
+\def\cyr{\tencyr\cyracc}
+\def\diracComb{\mbox{\cyr SH}}
+
+% Configuration des styles pour MATLAB
+\definecolor{codegreen}{HTML}{067d17}
+\definecolor{commentgray}{HTML}{da0dee}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{HTML}{0A39DB}
+\definecolor{backcolour}{HTML}{FFFAFF}
+
+\lstdefinestyle{matlabstyle}{
+    language=Matlab,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{codeblue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{commentgray},
+    identifierstyle=\color{black},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                             
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    frame=single,
+    rulecolor=\color{codegray},
+    literate={
+        *{0}{{{\color{codeblue}0}}}{1}%
+        {1}{{{\color{codeblue}1}}}{1}%
+        {2}{{{\color{codeblue}2}}}{1}%
+        {3}{{{\color{codeblue}3}}}{1}%
+        {4}{{{\color{codeblue}4}}}{1}%
+        {5}{{{\color{codeblue}5}}}{1}%
+        {6}{{{\color{codeblue}6}}}{1}%
+        {7}{{{\color{codeblue}7}}}{1}%
+        {8}{{{\color{codeblue}8}}}{1}%
+        {9}{{{\color{codeblue}9}}}{1}%
+    }
+}
+
+% Mots-clés MATLAB
+\lstset{
+    language=Matlab,
+    style=matlabstyle,
+    morekeywords={
+        abs, all, axis, break, case, catch, ceil, char, class, clear, clc, continue,
+        disp, else, elseif, end, error, exp, for, function, global, if, imag,
+        input, int2str, isempty, length, linspace, log, log10, max, min, nargin,
+        nargout, ones, pause, plot, real, return, round, semilogx, semilogy,
+        set, size, sqrt, strcat, strcmp, strfind, subplot, sum, switch, title,
+        toc, try, warning, while, xlabel, ylabel, zeros
+    },
+    morekeywords=[2]{fprintf}, % Spécialisation pour MATLAB
+    keywordstyle={[2]\color{codegray}\bfseries}
+}
+

@@ -1,0 +1,60 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{Package,Macros}
+
+\usepackage{csquotes} % Requis par biblatex
+\usepackage[backend=biber, style=numeric, url=true, doi=false, eprint=false]{biblatex}
+\DeclareUnicodeCharacter{202F}{\,}
+
+
+%\addbibresource{Bib/biblio.bib}
+
+
+\begin{document}
+
+\input{title_page}
+
+
+\renewcommand{\parttitle}{Table des matières}
+
+\tableofcontents
+
+\renewcommand{\parttitle}{Table des figures -- Liste des tableaux}
+\listoffigures
+\listoftables
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\renewcommand{\parttitle}{Résumé}
+%\textcolor{white}{,}
+%\vspace{6cm}
+%
+%\begin{abstract}
+%	...
+%\end{abstract}
+%
+%
+%\newpage
+%\renewcommand{\parttitle}{Glossaire}
+%\printglossary
+%\newpage
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% CORPS DU DOCUMENT
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\newpage             %%
+%%\nocite{*}           %%
+%%\printbibliography   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}
+

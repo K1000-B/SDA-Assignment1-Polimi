@@ -1,0 +1,64 @@
+# ===== LaTeX =====
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ilg
+*.ind
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.xdy
+*.dvi
+*.ps
+*.pdf
+
+# ===== MATLAB =====
+*.asv
+*.m~
+slprj/
+*.mex*
+
+# ===== Python =====
+*.pyc
+*.pyo
+__pycache__/
+.venv/
+.env
+*.egg-info/
+dist/
+.ipynb_checkpoints/
+
+# ===== Data / résultats =====
+*.mat
+*.npy
+*.npz
+results/
+output/
+
+# ===== macOS =====
+.DS_Store
+.AppleDouble
+
+# ===== Editors =====
+.vscode/
+*.swp
+*~
