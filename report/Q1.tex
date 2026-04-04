@@ -74,40 +74,37 @@ In order to compute $q_D$, we need to find the equations of motion. To do so, we
 \begin{align}
 \delta W_i &= \int_0^b \delta w_{,yy}\, EJ\, w_{,yy}\, dy + \int_0^b \delta\theta_{,y}\, GJ\, \theta_{,y}\, dy \\
 &= \int_0^b \delta\phi_w \frac{2}{b^2}\, EJ\, \frac{2}{b^2}\,\phi_w\, dy + \int_0^b \delta\phi_\theta \frac{1}{b}\, GJ\, \frac{1}{b}\,\phi_\theta\, dy \\
-&= \delta\phi_w \underbrace{\frac{4EJ}{b^3}}_{K_w} \phi_w + \delta\phi_\theta \underbrace{\frac{GJ}{b}}_{K_\theta} \phi_\theta
+&= \delta\phi_w \textcolor{green!45!black}{\underbrace{\frac{4EJ}{b^3}}_{K_w}} \phi_w + \delta\phi_\theta \textcolor{green!45!black}{\underbrace{\frac{GJ}{b}}_{K_\theta}} \phi_\theta
 \end{align}
 
 \begin{equation}
 \boxed{
+\textcolor{red!90!black}{
 \delta W_i = \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
 \begin{bmatrix} K_w & 0 \\ 0 & K_\theta \end{bmatrix}
 \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
 }
+}
 \end{equation}
 
 % ============================================================
-\section*{External Virtual Work}
+\subsubsection*{External Virtual Work}
 % ============================================================
 
 \[
-\delta W_e = \delta W_A^w + \delta W_A^A + \delta W_{\mathrm{STR}}
+\delta W_e = \delta W_{\text{AERO}}^{\text{wing}} + \delta W_{\text{AERO}}^{\text{aileron}} + \delta W_{\mathrm{STRUT}} + \delta W_{\text{INERTIA}} + \delta W_{\text{GRAVITY}}
 \]
 
-\subsection*{(1) Wing aerodynamic virtual work $\delta W_A^w$}
-
-The virtual displacement of the AC in $z$-direction:
+Since we are interested in the divergence dynamic pressure $q_D$, we can neglect inertia and gravity (static case, no external forces). Thus:
 \[
-h_{AC}(y) = w(y) + e\,\theta(y)
+\boxed{\delta W_e = \delta W_{\text{A}}^{\text{w}} + \delta W_{\text{A}}^{\text{a}} + \delta W_{\mathrm{STR}}}
 \]
 
-Lift per unit span (perturbation only, $\alpha = \theta$):
-\[
-L'_w(y) = q\, c\, C_{L/\alpha}\, \theta(y)
-\]
+\paragraph{(1) Wing aerodynamic virtual work $\delta W_A^w$}
 
+The virtual displacement of the AC in $z$-direction which is kinematically admissible is: $\boxed{h_{AC}(y) = w(y) + e\,\theta(y)}$ ; The lift per unit span (perturbation only, so $\alpha_{\mathrm{eff}} = \theta$ and $C_{L_0}=0$ so $C_L = C_{L/\alpha}\,\theta$): $\boxed{L'_w(y) = q\, c\, C_{L/\alpha}\, \theta(y)}$.
 \begin{align}
-\delta W_A^w &= \int_0^b \delta h_{AC}\, L'_w(y)\, dy \\
-&= \int_0^b \delta(w + e\theta)\, q\, c\, C_{L/\alpha}\, \theta\, dy \\
+\delta W_A^w &= \int_0^b \delta h_{AC}\, L'_w(y)\, dy = \int_0^b \delta(w + e\theta)\, q\, c\, C_{L/\alpha}\, \theta\, dy \\
 &= \int_0^b \delta\phi_w \left(\frac{y}{b}\right)^2 q\, c\, C_{L/\alpha}\, \frac{y}{b}\,\phi_\theta\, dy
 + \int_0^b \delta\phi_\theta \frac{y}{b}\, e\, q\, c\, C_{L/\alpha}\, \frac{y}{b}\,\phi_\theta\, dy
 \end{align}
@@ -115,14 +112,15 @@ L'_w(y) = q\, c\, C_{L/\alpha}\, \theta(y)
 Evaluating the integrals:
 \begin{equation}
 \boxed{
+\textcolor{red!90!black}{
 \delta W_A^w = \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
 q
 \begin{bmatrix} 0 & \dfrac{cb}{4}\,C_{L/\alpha} \\[6pt] 0 & \dfrac{ecb}{3}\,C_{L/\alpha} \end{bmatrix}
 \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
-}
+}}
 \end{equation}
 
-\subsection*{(2) Aileron aerodynamic virtual work $\delta W_A^A$}
+\paragraph{(2) Aileron aerodynamic virtual work $\delta W_A^A$}
 
 The aileron spans from $y = b - b_a$ to $y = b$, with deflection $\beta$. The pitching moment coefficient is:
 \[
@@ -277,4 +275,3 @@ More explicitly:
 \[
 \boxed{q_D = \frac{K_{S_1}\,K_{S_2} - (K_{S_{12}})^2}{K_{S_1}\,K_{A_2} - K_{S_{12}}\,K_{A_{12}}}}
 \]
-
