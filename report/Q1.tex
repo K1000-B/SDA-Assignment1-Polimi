@@ -1,66 +1,66 @@
 
-\renewcommand{\parttitle}{Problem Setup}
-% ============================================================
-\section*{\parttitle}
-% ============================================================
-
-According to the datas, the wing is free to bend and twist, with a strut attached at $y = y_B$. The aerodynamic center (AC) is located at $e$ from the elastic axis. The aileron is located at the wing tip, with span $b_a$ and deflection $\beta$.
-
-Thus, the wing has two degrees of freedom (DOFs):
-
-\begin{itemize}
-    \item $w(y,t)$: Bending deformation along $\mathbf{z}$
-    \item $\theta(y,t)$: Rotation around $\mathbf{y}$ \\
-\end{itemize}
-
-The goal is to develop a numerical model for wing bending and torsion based on the Ritz--Galerkin approach to perform a static aeroelastic analysis.
-
-
-\newpage
 \renewcommand{\parttitle}{Divergence Dynamic Pressure $q_D$ - Derivation}
 % ============================================================
+\section*{Problem Setup}
+% ============================================================
+
+The wing has two DOFs --- bending $w(y)$ and torsion $\theta(y)$ --- with a strut at $y = y_B$,
+aerodynamic center offset $e$ from the elastic axis, and a tip aileron of span $b_a$ and deflection $\beta$.
+The Ritz--Galerkin method is applied to perform a static aeroelastic analysis.
+
+% ============================================================
 \section*{\parttitle}
 % ============================================================
+
+% \subsection*{Shape Functions}
+
+% The wing is clamped at the root. Essential boundary conditions:
+% \begin{align*}
+%     &\text{For } w: \quad w(0) = 0 \quad \textit{(No displacement)},\quad w'(0) = 0 \quad \textit{(No bending)} \\
+%     &\text{For } \theta: \quad \theta(0) = 0 \quad \textit{(No rotation)}
+% \end{align*}
+
+% We approximate the problem with the Ritz--Galerkin approach:
+% \begin{equation}
+%     w(y,t) = N_w(y)\,\phi_w(t), \qquad \theta(y,t) = N_\theta(y)\,\phi_\theta(t)
+% \end{equation}
+
+% To comply with the essential boundary conditions, the shape functions must satisfy:
+% \begin{itemize}
+%     \item $N_w$: at least 2nd order (2 BCs to satisfy)
+%     \item $N_\theta$: at least 1st order (1 BC to satisfy)\\
+% \end{itemize}
+
+% For $N_w$, we take a parabolic shape function:
+% \[
+% N_w(y) = A_w\left(\frac{y}{b}\right)^2 + B_w\left(\frac{y}{b}\right) + C_w
+% \]
+
+% Applying BCs: $N_w(0)=0 \Rightarrow C_w=0$, $N_w'(0)=0 \Rightarrow B_w=0$ ; Normalizing: $N_w(b)=1 \Rightarrow A_w = 1$.
+
+% \begin{equation}
+% \boxed{N_w(y) = \left(\frac{y}{b}\right)^2 \implies w(y,t) = \left(\frac{y}{b}\right)^2 \phi_w(t)}
+% \end{equation}
+
+% For $N_\theta$, we take an affine shape function:
+% \[
+% N_\theta(y) = A_\theta \frac{y}{b} + B_\theta 
+% \]
+
+% Applying BC: $N_\theta(0)=0 \Rightarrow B_\theta=0$ ; Normalizing $N_\theta(b)=1 \Rightarrow A_\theta = 1$.
+
+% \begin{equation}
+% \boxed{N_\theta(y) = \frac{y}{b} \implies \theta(y,t) = \frac{y}{b}\,\phi_\theta(t)}
+% \end{equation}
 
 \subsection*{Shape Functions}
 
-The wing is clamped at the root. Essential boundary conditions:
-\begin{align*}
-    &\text{For } w: \quad w(0) = 0 \quad \textit{(No displacement)},\quad w'(0) = 0 \quad \textit{(No bending)} \\
-    &\text{For } \theta: \quad \theta(0) = 0 \quad \textit{(No rotation)}
-\end{align*}
-
-We approximate the problem with the Ritz--Galerkin approach:
-\begin{equation}
-    w(y,t) = N_w(y)\,\phi_w(t), \qquad \theta(y,t) = N_\theta(y)\,\phi_\theta(t)
-\end{equation}
-
-To comply with the essential boundary conditions, the shape functions must satisfy:
-\begin{itemize}
-    \item $N_w$: at least 2nd order (2 BCs to satisfy)
-    \item $N_\theta$: at least 1st order (1 BC to satisfy)\\
-\end{itemize}
-
-For $N_w$, we take a parabolic shape function:
-\[
-N_w(y) = A_w\left(\frac{y}{b}\right)^2 + B_w\left(\frac{y}{b}\right) + C_w
-\]
-
-Applying BCs: $N_w(0)=0 \Rightarrow C_w=0$, $N_w'(0)=0 \Rightarrow B_w=0$ ; Normalizing: $N_w(b)=1 \Rightarrow A_w = 1$.
+Root clamp imposes $w(0)=w'(0)=\theta(0)=0$. The Ritz ansatz
+$w = N_w(y)\,\phi_w$, $\theta = N_\theta(y)\,\phi_\theta$
+requires $N_w$ quadratic and $N_\theta$ linear. Applying BCs and normalizing to unity at the tip:
 
 \begin{equation}
-\boxed{N_w(y) = \left(\frac{y}{b}\right)^2 \implies w(y,t) = \left(\frac{y}{b}\right)^2 \phi_w(t)}
-\end{equation}
-
-For $N_\theta$, we take an affine shape function:
-\[
-N_\theta(y) = A_\theta \frac{y}{b} + B_\theta 
-\]
-
-Applying BC: $N_\theta(0)=0 \Rightarrow B_\theta=0$ ; Normalizing $N_\theta(b)=1 \Rightarrow A_\theta = 1$.
-
-\begin{equation}
-\boxed{N_\theta(y) = \frac{y}{b} \implies \theta(y,t) = \frac{y}{b}\,\phi_\theta(t)}
+\boxed{N_w(y) = \left(\frac{y}{b}\right)^2, \qquad N_\theta(y) = \frac{y}{b}}
 \end{equation}
 
 % ============================================================
@@ -71,19 +71,18 @@ In order to compute $q_D$, we need to find the equations of motion. To do so, we
 
 \subsubsection*{Internal Virtual Work}
 
+Substituting $N_w'' = 2/b^2$ and $N_\theta' = 1/b$:
+
 \begin{align}
-\delta W_i &= \int_0^b \delta w_{,yy}\, EJ\, w_{,yy}\, dy + \int_0^b \delta\theta_{,y}\, GJ\, \theta_{,y}\, dy \\
-&= \int_0^b \delta\phi_w \frac{2}{b^2}\, EJ\, \frac{2}{b^2}\,\phi_w\, dy + \int_0^b \delta\phi_\theta \frac{1}{b}\, GJ\, \frac{1}{b}\,\phi_\theta\, dy \\
-&= \delta\phi_w \textcolor{green!45!black}{\underbrace{\frac{4EJ}{b^3}}_{K_w}} \phi_w + \delta\phi_\theta \textcolor{green!45!black}{\underbrace{\frac{GJ}{b}}_{K_\theta}} \phi_\theta
+\delta W_i = \int_0^b \delta w_{,yy}\,EJ\,w_{,yy}\,dy + \int_0^b \delta\theta_{,y}\,GJ\,\theta_{,y}\,dy = \delta\phi_w\,\frac{4EJ}{b^3}\,\phi_w + \delta\phi_\theta\,\frac{GJ}{b}\,\phi_\theta
 \end{align}
 
 \begin{equation}
 \boxed{
-\textcolor{red!90!black}{
-\delta W_i = \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
+\delta W_i = \delta\boldsymbol{\phi}^T
 \begin{bmatrix} K_w & 0 \\ 0 & K_\theta \end{bmatrix}
-\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
-}
+\boldsymbol{\phi}, \qquad
+K_w = \frac{4EJ}{b^3}, \quad K_\theta = \frac{GJ}{b}
 }
 \end{equation}
 
@@ -100,178 +99,366 @@ Since we are interested in the divergence dynamic pressure $q_D$, we can neglect
 \boxed{\delta W_e = \delta W_{\text{A}}^{\text{w}} + \delta W_{\text{A}}^{\text{a}} + \delta W_{\mathrm{STR}}}
 \]
 
+% \paragraph{(1) Wing aerodynamic virtual work $\delta W_A^w$}
+
+% The virtual displacement of the AC in $z$-direction which is kinematically admissible is: $\boxed{h_{AC}(y) = w(y) + e\,\theta(y)}$ ; The lift per unit span (perturbation only, so $\alpha_{\mathrm{eff}} = \theta$ and $C_{L_0}=0$ so $C_L = C_{L/\alpha}\,\theta$): $\boxed{L'_w(y) = q\, c\, C_{L/\alpha}\, \theta(y)}$.
+% \begin{align}
+% \delta W_A^w &= \int_0^b \delta h_{AC}\, L'_w(y)\, dy = \int_0^b \delta(w + e\theta)\, q\, c\, C_{L/\alpha}\, \theta\, dy \\
+% &= \int_0^b \delta\phi_w \left(\frac{y}{b}\right)^2 q\, c\, C_{L/\alpha}\, \frac{y}{b}\,\phi_\theta\, dy
+% + \int_0^b \delta\phi_\theta \frac{y}{b}\, e\, q\, c\, C_{L/\alpha}\, \frac{y}{b}\,\phi_\theta\, dy
+% \end{align}
+
+% Evaluating the integrals:
+% \begin{equation}
+% \boxed{
+% \textcolor{red!90!black}{
+% \delta W_A^w =\delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^{T}\, q\,\mathbf{K}_A \,\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}}} \quad \text{where }
+% \mathbf{K}_A =\begin{bmatrix}0 & \dfrac{c b}{4}\,C_{L/\alpha} \\[6pt]0 & \dfrac{e c b}{3}\,C_{L/\alpha}\end{bmatrix}
+% \end{equation}
+
+% \noindent
+% \(\mathbf{K}_A = [K_{A_{ij}}]\) is the aerodynamic stiffness matrix, with components denoted \(K_{A_{ij}}\).
+
 \paragraph{(1) Wing aerodynamic virtual work $\delta W_A^w$}
 
-The virtual displacement of the AC in $z$-direction which is kinematically admissible is: $\boxed{h_{AC}(y) = w(y) + e\,\theta(y)}$ ; The lift per unit span (perturbation only, so $\alpha_{\mathrm{eff}} = \theta$ and $C_{L_0}=0$ so $C_L = C_{L/\alpha}\,\theta$): $\boxed{L'_w(y) = q\, c\, C_{L/\alpha}\, \theta(y)}$.
+The kinematically admissible AC displacement is $h_{AC} = w + e\,\theta$, and strip lift reads
+$L'_w = q\,c\,C_{L/\alpha}\,\theta$ (perturbation, $\alpha_\mathrm{eff}=\theta$, $C_{L_0}=0$). Thus:
+
 \begin{align}
-\delta W_A^w &= \int_0^b \delta h_{AC}\, L'_w(y)\, dy = \int_0^b \delta(w + e\theta)\, q\, c\, C_{L/\alpha}\, \theta\, dy \\
-&= \int_0^b \delta\phi_w \left(\frac{y}{b}\right)^2 q\, c\, C_{L/\alpha}\, \frac{y}{b}\,\phi_\theta\, dy
-+ \int_0^b \delta\phi_\theta \frac{y}{b}\, e\, q\, c\, C_{L/\alpha}\, \frac{y}{b}\,\phi_\theta\, dy
+\delta W_A^w &= \int_0^b \delta h_{AC}\,L'_w\,dy
+= \int_0^b \delta\phi_w \left(\frac{y}{b}\right)^2 q\,c\,C_{L/\alpha}\,\frac{y}{b}\,\phi_\theta\,dy
++ \int_0^b \delta\phi_\theta\,\frac{y}{b}\,e\,q\,c\,C_{L/\alpha}\,\frac{y}{b}\,\phi_\theta\,dy
 \end{align}
 
-Evaluating the integrals:
 \begin{equation}
 \boxed{
-\textcolor{red!90!black}{
-\delta W_A^w = \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
-q
-\begin{bmatrix} 0 & \dfrac{cb}{4}\,C_{L/\alpha} \\[6pt] 0 & \dfrac{ecb}{3}\,C_{L/\alpha} \end{bmatrix}
-\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
-}}
+\delta W_A^w = \delta\boldsymbol{\phi}^T\,q\,\mathbf{K}_A\,\boldsymbol{\phi}
+}, \qquad
+\mathbf{K}_A =
+\begin{bmatrix}
+0 & \dfrac{cb}{4}C_{L/\alpha} \\[6pt]
+0 & \dfrac{ecb}{3}C_{L/\alpha}
+\end{bmatrix}
 \end{equation}
 
-\paragraph{(2) Aileron aerodynamic virtual work $\delta W_A^A$}
+$\mathbf{K}_A$ is the aerodynamic stiffness matrix.
 
-The aileron spans from $y = b - b_a$ to $y = b$, with deflection $\beta$. The pitching moment coefficient is:
-\[
-C_{m_{AC}} = C_{m_0} + C_{m/\beta}\,\beta
-\]
+% \paragraph{(2) Aileron aerodynamic virtual work $\delta W_A^a$}
+
+% Although the aileron influence is not required for the computation of the divergence dynamic pressure -- since the equation of motion is studied without forcing terms -— we still derive it in case it becomes necessary later in the assignment. The aileron spans from $y = b - b_a$ to $y = b$, with deflection $\beta$. The pitching moment coefficient is:
+% \begin{align*}
+% C_{m_{AC}} = \cancelto{0}{C_{m_0}} &+ C_{m/\beta}\,\beta \quad \textit{(perturbation analysis)}\\
+% \delta W_A^a = \int_{b-b_a}^{b} \delta h_{AC}\, L'_{\mathrm{a}}(y)\, dy + \int_{b-b_a}^{b} \delta\theta\, M'_{AC,\mathrm{a}}(y)\, dy &= \int_{b-b_a}^{b} \delta(w+e\theta)\, q\, c\, C_{L/\beta}\,\beta\, dy
+% + \int_{b-b_a}^{b} \delta\theta\, q\, c^2\, C_{m/\beta}\,\beta\, dy
+% \end{align*}
+
+% Evaluating directly in matrix form :
+% % \begin{align}
+% % \delta W_A^A &= \delta\phi_w\, q\, e\, C_{L/\beta}\,\frac{1}{b^2}\left[\frac{b^3-(b-b_a)^3}{3}\right]\beta \\
+% % &+ \delta\phi_\theta\, q\, e\, c\, C_{L/\beta}\,\frac{1}{b}\left[\frac{b^2-(b-b_a)^2}{2}\right]\beta \\
+% % &+ \delta\phi_\theta\, q\, c^2\, C_{m/\beta}\,\frac{1}{b}\left[\frac{b^2-(b-b_a)^2}{2}\right]\beta
+% % \end{align}
+% \begin{equation}
+% \boxed{
+% \textcolor{red!90!black}{
+% \delta W_A^a = \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
+% q \beta \mathbf{F}_a
+% }
+% }
+% \quad
+% \text{where } 
+% \mathbf{F}_a =
+% \frac{c}{b}
+% \begin{Bmatrix}
+% C_{L/\beta}\cdot\dfrac{1}{b}\left[\dfrac{b^3-(b-b_a)^3}{3}\right] \\[6pt]
+% \left(e\,C_{L/\beta} + c\,C_{m/\beta}\right)\left[\dfrac{b^2-(b-b_a)^2}{2}\right]
+% \end{Bmatrix}
+% \end{equation}
+
+\paragraph{(2) Aileron aerodynamic virtual work $\delta W_A^a$}
+
+Not needed for $q_D$ (homogeneous problem) but derived for later use. The aileron spans $[b-b_a,\,b]$
+with deflection $\beta$; perturbation gives $C_{m_{AC}} = C_{m/\beta}\beta$. The virtual work splits into
+a lift contribution and a pitching moment contribution:
 
 \begin{align}
-\delta W_A^A &= \int_{b-b_a}^{b} \delta h_{AC}\, L'_{\mathrm{Ail}}(y)\, dy + \int_{b-b_a}^{b} \delta\theta\, M'_{AC_{\mathrm{Ail}}}(y)\, dy \\
-&= \int_{b-b_a}^{b} \delta(w+e\theta)\, q\, c\, C_{L/\beta}\,\beta\, dy
-+ \int_{b-b_a}^{b} \delta\theta\, q\, c^2\, C_{m/\beta}\,\beta\, dy
+\delta W_A^a &= \int_{b-b_a}^{b} \delta(w+e\theta)\,q\,c\,C_{L/\beta}\,\beta\,dy
++ \int_{b-b_a}^{b} \delta\theta\,q\,c^2\,C_{m/\beta}\,\beta\,dy
 \end{align}
 
-Evaluating:
-\begin{align}
-\delta W_A^A &= \delta\phi_w\, q\, e\, C_{L/\beta}\,\frac{1}{b^2}\left[\frac{b^3-(b-b_a)^3}{3}\right]\beta \\
-&+ \delta\phi_\theta\, q\, e\, c\, C_{L/\beta}\,\frac{1}{b}\left[\frac{b^2-(b-b_a)^2}{2}\right]\beta \\
-&+ \delta\phi_\theta\, q\, c^2\, C_{m/\beta}\,\frac{1}{b}\left[\frac{b^2-(b-b_a)^2}{2}\right]\beta
-\end{align}
-
-In matrix form:
 \begin{equation}
-\delta W_A^A = \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
-q\,\frac{c}{b}\,\beta
+\boxed{
+\delta W_A^a = \delta\boldsymbol{\phi}^T\,q\beta\,\mathbf{F}_a
+}, \qquad
+\mathbf{F}_a = \frac{c}{b}
 \begin{Bmatrix}
-C_{L/\beta}\cdot\dfrac{1}{b}\left[\dfrac{b^3-(b-b_a)^3}{3}\right] \\[8pt]
-\left(e\,C_{L/\beta} + c\,C_{m/\beta}\right)\left[\dfrac{b^2-(b-b_a)^2}{2}\right]
+C_{L/\beta}\cdot\dfrac{b^3-(b-b_a)^3}{3b} \\[8pt]
+\left(e\,C_{L/\beta}+c\,C_{m/\beta}\right)\dfrac{b^2-(b-b_a)^2}{2}
 \end{Bmatrix}
 \end{equation}
 
-\subsection*{(3) Strut virtual work $\delta W_{\mathrm{STR}}$}
+\paragraph{(3) Strut virtual work $\delta W_{\mathrm{STR}}$}
 
-From PCVW applied in the axial direction of the strut:
-\[
-F_S = -\frac{EA}{\ell}\, u, \quad \ell = \frac{z_A}{\sin\gamma}, \quad u = h_B\sin\gamma
-\]
-\[
-F_S = -\frac{EA}{z_A}\sin^2(\gamma)\, h_B, \qquad F_{Sz} = F_S\sin(\gamma)
-\]
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.7,>=stealth]
+
+    % Colors
+    \definecolor{strutorange}{RGB}{220,130,40}
+    \definecolor{forceblue}{RGB}{40,70,170}
+    \definecolor{dispgreen}{RGB}{20,140,70}
+    \definecolor{virtred}{RGB}{200,40,40}
+
+    % Coordinates
+    \coordinate (O) at (0,0);
+    \coordinate (A) at (0,-3.2);
+    \coordinate (B) at (5.4,0);
+    \coordinate (BeamEnd) at (7.2,0); % beam extends beyond the strut
+
+    % Horizontal beam
+    \draw[thick] (O) -- (BeamEnd);
+
+    % Clamped wall
+    \draw[thick] (-0.15,0.55) -- (-0.15,-0.55);
+    \foreach \y in {-0.50,-0.35,-0.20,-0.05,0.10,0.25,0.40}
+        \draw[thick] (-0.15,\y) -- (-0.35,\y+0.15);
+
+    % Vertical distance z_A
+    \draw[<->,thick] (-0.75,0) -- (-0.75,-3.2);
+    \node[left] at (-0.75,-1.6) {$z_A$};
+
+    % Points
+    \filldraw[white,draw=black,thick] (A) circle (2.2pt);
+    \filldraw[white,draw=black,thick] (B) circle (2.2pt);
+
+    \node[below left] at (0.1,-3.5) {$A$};
+    \node[above right] at (B) {$B$};
+
+    % Strut in orange
+    \draw[thick,strutorange] (A) -- (B);
+    \node at (2.55,-2.1) {$\ell$};
+
+    % Gamma, moved slightly upward
+    \draw[thick] (4.45,0) arc[start angle=180,end angle=212,radius=0.95];
+    \node at (4.18,-0.45) {$\gamma$};
+
+    % Displacement u, rotated a bit more to the right, parallel to strut
+    \draw[->,thick,dispgreen] (4.12,-1.02) -- (4.82,-0.60);
+    \node[right,dispgreen] at (4.78,-0.83) {$u$};
+
+    % Vertical displacement h_B
+    \draw[->,thick,dispgreen] (B) -- ++(0,1.05);
+    \node[right,dispgreen] at (5.45,0.8) {$h_B$};
+
+    % Force F_Sz exactly above pivot B
+    \draw[->,thick,forceblue] (5.4,1.85) -- (5.4,1);
+    \node[right,forceblue] at (5.4,1.4) {$F_{Sz}$};
+
+    % Force F_S aligned with strut, placed further downstream
+    \draw[->,thick,forceblue] (6.9,0.9) -- (6.10,0.41);
+    \node[right,forceblue] at (6.5,0.5) {$F_S$};
+
+    % Virtual force 1 at top, aligned with F_S
+    \draw[->,thick,virtred] (7.55,1.28) -- (6.92,0.90);
+    \node[right,virtred] at (7.58,1.31) {$1$};
+
+    % Virtual force 1 at A, opposite direction
+    \draw[->,thick,virtred] (-0.72,-3.63) -- (-0.08,-3.25);
+    \node[left,virtred] at (-0.72,-3.63) {$1$};
+
+\end{tikzpicture}
+\caption{Equivalent model of the strut, replaced by an equivalent axial spring of stiffness $K_{\mathrm{STR}}$.}
+\label{fig:strut-equivalent-spring}
+\end{figure}
+
+
+% From PCVW applied in the axial direction of the strut:
+% \[
+% F_S = -\frac{EA}{\ell}\, u, \quad \ell = \frac{z_A}{\sin\gamma}, \quad u = h_B\sin\gamma , \quad F_{Sz} = F_S\sin(\gamma)
+% \]
+
+
+% \begin{equation}
+% \boxed{\textcolor{red!90!black}{F_{Sz} = -\underbrace{\frac{EA}{z_A}\sin^3(\gamma)}_{K_{\mathrm{STR}}} h_B}}
+% \end{equation}
+
+% We have then : $\delta W_{\mathrm{STR}} = \delta h_B \, \cdot (-K_{\mathrm{STR}})\,  \cdot h_B$. We need to define $h_B$ : 
+
+% \begin{align*}
+%     \left.\begin{matrix}
+% h_B(x_B=0)=w(y_B) \\ h_B(x_B=\pm \frac{c}{2})=w(y_B) \mp \frac{c}{2} \theta(y_B)
+% \end{matrix}\right\}\to h_B(x_B)&=w(y_B)- x_B \, \theta (y_B) = \left(\frac{y_B}{b} \right)^2 \phi_w \,-\,x_B\frac{y_B}{b} \phi_\theta \\
+% &\text{where} \quad y_B = \frac{z_A}{\tan\gamma}
+% \end{align*}
+
+% Defining the normalized strut spanwise position: $\eta_B = \frac{z_A}{b\tan(\gamma)}$. The displacement at the strut attachment point B is :
+% \[
+% h_B(x_B) =  \eta_B\left[\eta_B\phi_w - x_B\phi_\theta\right]
+% \]
+
+% Then : 
+% \begin{align}
+%     \delta W_{\mathrm{STR}} =\eta_B^2 \left[\eta_B \delta \phi_w - x_B \delta\phi_\theta\right] \, \cdot (- K_{STR}) \cdot \left[\eta_B \phi_w - x_B \phi_\theta\right] 
+% \end{align}
+
+% \begin{equation}
+% \boxed{\textcolor{red!90!black}{
+% \delta W_{\mathrm{STR}} = \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
+% \cdot \left(-K_{\mathrm{STR}}\,\eta_B^2\right) \cdot
+% \begin{bmatrix} \eta_B^2 & -\eta_B x_B \\ -\eta_B x_B & x_B^2 \end{bmatrix}
+% \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}}
+% }
+% \end{equation}
+
+
+The strut axial force and its $z$-component follow from geometry ($\ell = z_A/\sin\gamma$,
+$u = h_B\sin\gamma$):
 
 \begin{equation}
-\boxed{F_{Sz} = -\underbrace{\frac{EA}{z_A}\sin^3(\gamma)}_{K_{\mathrm{STR}}} h_B}
+\boxed{F_{Sz} = -\underbrace{\frac{EA}{z_A}\sin^3\gamma}_{K_\mathrm{STR}} h_B}
 \end{equation}
 
-Defining the normalized strut spanwise position:
+The displacement at attachment point B, using $\eta_B = z_A/(b\tan\gamma)$:
+
 \[
-\eta_B = \frac{z_A}{b\tan(\gamma)}
+h_B = w(y_B) - x_B\,\theta(y_B) = \eta_B\bigl[\eta_B\,\phi_w - x_B\,\phi_\theta\bigr]
 \]
 
-The displacement at the strut attachment point B:
-\[
-h_B(x_B) = \left(\frac{y_B}{b}\right)^2\phi_w - x_B\,\frac{y_B}{b}\,\phi_\theta, \quad y_B = \frac{z_A}{\tan\gamma}
-\]
-\[
-h_B(x_B) = \frac{z_A}{b\tan\gamma}\left[\frac{z_A}{b\tan\gamma}\phi_w - x_B\phi_\theta\right] = \eta_B\left[\eta_B\phi_w - x_B\phi_\theta\right]
-\]
-
-\begin{align}
-\delta W_{\mathrm{STR}} &= \delta\phi_w\, K_{\mathrm{STR}}\,\eta_B^4\,\phi_w
-- \delta\phi_w\, K_{\mathrm{STR}}\,\eta_B^3\, x_B\,\phi_\theta \\
-&- \delta\phi_\theta\, K_{\mathrm{STR}}\,\eta_B^3\, x_B\,\phi_w
-+ \delta\phi_\theta\, K_{\mathrm{STR}}\,\eta_B^2\, x_B^2\,\phi_\theta
-\end{align}
+Substituting into $\delta W_\mathrm{STR} = \delta h_B\,(-K_\mathrm{STR})\,h_B$:
 
 \begin{equation}
 \boxed{
-\delta W_{\mathrm{STR}} = \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
-\left(-K_{\mathrm{STR}}\,\eta_B^2\right)
+\delta W_\mathrm{STR} = -\delta\boldsymbol{\phi}^T\,K_\mathrm{STR}\,\eta_B^2
 \begin{bmatrix} \eta_B^2 & -\eta_B x_B \\ -\eta_B x_B & x_B^2 \end{bmatrix}
-\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
+\boldsymbol{\phi}
 }
 \end{equation}
 
-where $K_{\mathrm{STR}} = \dfrac{EA}{z_A}\sin^3(\gamma)$, $\eta_B = \dfrac{z_A}{b\tan(\gamma)}$.
 
-% ============================================================
-\section*{Application of PVW: $\delta W_i = \delta W_e$}
-% ============================================================
+
+% % ============================================================
+% \subsection*{Application of PVW: $\delta W_i = \delta W_e$}
+% % ============================================================
+
+% \begin{equation}
+% \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
+% \begin{bmatrix} K_w & 0 \\ 0 & K_\theta \end{bmatrix}
+% \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
+% =
+% \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T 
+% \left(
+% q\mathbf{K}_A \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
+% + q\,\beta\,\mathbf{F}_{\mathrm{a}}
+% - K_{\mathrm{STR}}\,\eta_B^2\begin{bmatrix}\eta_B^2 & -\eta_B x_B \\ -\eta_B x_B & x_B^2\end{bmatrix} \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
+% \right)
+% \end{equation}
+
+% With rewritting PVW and given the arbitrariness of the virtual displacements, and considering the unforced case (for $q_D$ computation, $\beta=0$):
+
+% \begin{equation}
+% \boxed{
+% \left(
+% \begin{bmatrix}
+% K_w + K_{\mathrm{STR}}\,\eta_B^4 & -K_{\mathrm{STR}}\,\eta_B^3\,x_B \\
+% -K_{\mathrm{STR}}\,\eta_B^3\,x_B & K_\theta + K_{\mathrm{STR}}\,\eta_B^2\,x_B^2
+% \end{bmatrix}
+% - q\,\mathbf{K}_A
+% \right)
+% \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
+% =
+% \begin{Bmatrix}0\\0\end{Bmatrix}
+% }
+% \end{equation}
+
+% This can be written compactly as $\left(\mathbf{K}_S - q_D\,\mathbf{K}_A\right)\boldsymbol{\phi} = \mathbf{0}$,
+% where $\mathbf{K}_S$ is the total structural stiffness matrix of the system. Partitioning both matrices explicitly:
+
+% \begin{equation}
+% \mathbf{K}_S =
+% \begin{bmatrix}
+% K_{S_1} & K_{S_{12}} \\
+% K_{S_{12}} & K_{S_2}
+% \end{bmatrix},
+% \qquad
+% \mathbf{K}_A =
+% \begin{bmatrix}
+% 0 & K_{A_1} \\
+% 0 & K_{A_2}
+% \end{bmatrix}
+% =
+% \begin{bmatrix}
+% 0 & \dfrac{cb}{4}\,C_{L/\alpha} \\[8pt]
+% 0 & \dfrac{ecb}{3}\,C_{L/\alpha}
+% \end{bmatrix}
+% \end{equation}
+
+% The structural stiffness coefficients are:
+
+% \begin{align}
+% K_{S_1} &= K_w + K_{\mathrm{STR}}\,\eta_B^4
+% = \frac{4EJ}{b^3} + \frac{EA\,z_A^3}{b^4}\,\frac{\cos^4\gamma}{\sin\gamma} \\[6pt]
+% K_{S_{12}} &= -K_{\mathrm{STR}}\,\eta_B^3\,x_B
+% = -\frac{EA\,z_A^2\,\cos^3\gamma\,x_B}{b^3} \\[6pt]
+% K_{S_2} &= K_\theta + K_{\mathrm{STR}}\,\eta_B^2\,x_B^2
+% = \frac{GJ}{b} + \frac{EA\,\sin\gamma\,\cos^2\gamma\,z_A\,x_B^2}{b^2}
+% \end{align}
+
+
+\subsection*{Application of PVW: $\delta W_i = \delta W_e$}
 
 \begin{equation}
-\delta\boldsymbol{\phi}^T
+\delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
 \begin{bmatrix} K_w & 0 \\ 0 & K_\theta \end{bmatrix}
-\boldsymbol{\phi}
+\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
 =
-\delta\boldsymbol{\phi}^T \left(
-q\begin{bmatrix} 0 & \dfrac{cb}{4}\,C_{L/\alpha} \\[4pt] 0 & \dfrac{ecb}{3}\,C_{L/\alpha} \end{bmatrix}
-+ q\,\frac{c}{b}\,\beta\,\mathbf{F}_{\mathrm{Ail}}
-- K_{\mathrm{STR}}\,\eta_B^2\begin{bmatrix}\eta_B^2 & -\eta_B x_B \\ -\eta_B x_B & x_B^2\end{bmatrix}
+\delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T 
+\left(
+q\mathbf{K}_A \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
++ q\,\beta\,\mathbf{F}_{\mathrm{a}}
+- K_{\mathrm{STR}}\,\eta_B^2\begin{bmatrix}\eta_B^2 & -\eta_B x_B \\ -\eta_B x_B & x_B^2\end{bmatrix} \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
 \right)
-\boldsymbol{\phi}
 \end{equation}
 
-% ============================================================
-\section*{Full Stiffness Matrix and Equilibrium}
-% ============================================================
+Assembling all contributions and invoking the arbitrariness of $\delta\boldsymbol{\phi}$
+(unforced case $\beta = 0$ for $q_D$ computation):
 
-The full system (non-forced, static for $q_D$ computation):
-
-\[
+\begin{equation}
+\boxed{
+\left(
 \begin{bmatrix}
 K_w + K_{\mathrm{STR}}\,\eta_B^4 & -K_{\mathrm{STR}}\,\eta_B^3\,x_B \\
 -K_{\mathrm{STR}}\,\eta_B^3\,x_B & K_\theta + K_{\mathrm{STR}}\,\eta_B^2\,x_B^2
 \end{bmatrix}
-- q
-\begin{bmatrix}
-0 & \dfrac{cb}{4}\,C_{L/\alpha} \\[6pt]
-0 & \dfrac{ecb}{3}\,C_{L/\alpha}
-\end{bmatrix}
-= \mathbf{0}
-\]
-
-Defining:
-\[
-\mathbf{K}_S = \begin{bmatrix} K_{S_1} & K_{S_{12}} \\ K_{S_{12}} & K_{S_2} \end{bmatrix}
-\]
-
-with:
-\begin{align*}
-K_{S_1} &= K_w + K_{\mathrm{STR}}\,\eta_B^4 = \frac{4EJ}{b^3} + \frac{EA}{z_A}\sin^3(\gamma)\,\eta_B^4 \\[4pt]
-K_{S_{12}} &= -K_{\mathrm{STR}}\,\eta_B^3\,x_B = -\frac{EA}{z_A}\sin^3(\gamma)\,\eta_B^3\,x_B \\[4pt]
-K_{S_2} &= K_\theta + K_{\mathrm{STR}}\,\eta_B^2\,x_B^2 = \frac{GJ}{b} + \frac{EA}{z_A}\sin^3(\gamma)\,\eta_B^2\,x_B^2
-\end{align*}
-
-% ============================================================
-\section*{Divergence Dynamic Pressure $q_D$}
-% ============================================================
-
-For divergence, the system is unforced ($\beta = 0$). The condition is:
-\[
-\det\!\left(\mathbf{K}_S - q_D\,\mathbf{K}_A\right) = 0
-\]
-
-where $\mathbf{K}_A = q\begin{bmatrix}0 & \frac{cb}{4}C_{L/\alpha} \\ 0 & \frac{ecb}{3}C_{L/\alpha}\end{bmatrix}$.
-
-Expanding the determinant:
-
-\[
-K_{S_1}K_{S_2} - q_D\,K_{S_1}\,K_{A_2} - (K_{S_{12}})^2 + q_D\,K_{S_{12}}\,K_{A_{12}} = 0
-\]
-
-\[
-q_D\left(K_{S_1}K_{A_2} - K_{S_{12}}\,K_{A_{12}}\right) = K_{S_1}K_{S_2} - (K_{S_{12}})^2
-\]
-
-\begin{equation}
-\boxed{
-q_D = \frac{K_{S_1}K_{S_2} - (K_{S_{12}})^2}{K_{S_1}K_{A_2} - K_{S_{12}}\,K_{A_{12}}}
-= \frac{K_{S_1}K_{S_2} - (K_{S_{12}})^2}{K_{S_1}K_{S_2} - (K_{S_{12}})^2} \cdot \frac{K_{S_1}K_{S_2}-(K_{S_{12}})^2}{K_{S_1}K_{S_2} - K_{S_{12}}\,K_{A_{12}}}
+- q\,\mathbf{K}_A
+\right)
+\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
+=
+\begin{Bmatrix}0\\0\end{Bmatrix}
 }
 \end{equation}
 
-More explicitly:
-\[
-\boxed{q_D = \frac{K_{S_1}\,K_{S_2} - (K_{S_{12}})^2}{K_{S_1}\,K_{A_2} - K_{S_{12}}\,K_{A_{12}}}}
-\]
+This is $\left(\mathbf{K}_S - q_D\,\mathbf{K}_A\right)\boldsymbol{\phi} = \mathbf{0}$, with:
+
+\begin{equation}
+\mathbf{K}_S =
+\begin{bmatrix}
+K_{S_1} & K_{S_{12}} \\
+K_{S_{12}} & K_{S_2}
+\end{bmatrix},
+\qquad
+\mathbf{K}_A =
+\begin{bmatrix}
+0 & \mathbf{K_{A_1}}=\dfrac{cb}{4}\,C_{L/\alpha} \\[6pt]
+0 & \mathbf{K_{A_2}}=\dfrac{ecb}{3}\,C_{L/\alpha}
+\end{bmatrix}
+\end{equation}
+
+\begin{align}
+K_{S_1} = \frac{4EJ}{b^3} + \frac{EA\,z_A^3}{b^4}\,\frac{\cos^4\gamma}{\sin\gamma}, \qquad K_{S_{12}} = -\frac{EA\,z_A^2\,\cos^3\gamma\,x_B}{b^3}, \qquad K_{S_2} = \frac{GJ}{b} + \frac{EA\,\sin\gamma\,\cos^2\gamma\,z_A\,x_B^2}{b^2}
+\end{align}
+
+For divergence, the condition is: $\det\!\left(\mathbf{K}_S - q_D\,\mathbf{K}_A\right) = 0$. Expanding the determinant:
+\begin{equation}
+K_{S_1}K_{S_2} - q_D\,K_{S_1}\,K_{A_2} - K_{S_{12}}^2 + q_D\,K_{S_{12}}\,K_{A_{1}} = 0 \quad \Rightarrow \quad
+\boxed{\textcolor{red!90!black}{q_D = \frac{K_{S_1}\,K_{S_2} - (K_{S_{12}})^2}{K_{S_1}\,K_{A_2} - K_{S_{12}}\,K_{A_{12}}}}}
+\end{equation}
