@@ -1,10 +1,10 @@
 \documentclass[a4paper, 12pt]{article}
 
-\usepackage{Package,Macros}
+\usepackage{Config/Package,Config/Macros}
 
 \usepackage{csquotes} % Requis par biblatex
 \usepackage[backend=biber, style=numeric, url=true, doi=false, eprint=false]{biblatex}
-\DeclareUnicodeCharacter{202F}{\,}
+%\DeclareUnicodeCharacter{202F}{\,}
 
 
 %\addbibresource{Bib/biblio.bib}
@@ -12,17 +12,17 @@
 
 \begin{document}
 
-\input{title_page}
+\input{Config/title_page}
 
 
-\renewcommand{\parttitle}{Table des matières}
+% \renewcommand{\parttitle}{Table of contents}
 
-\tableofcontents
+% \tableofcontents
 
-\renewcommand{\parttitle}{Table des figures -- Liste des tableaux}
-\listoffigures
-\listoftables
-\newpage
+% \renewcommand{\parttitle}{List of figures -- List of tables}
+% \listoffigures
+% \listoftables
+% \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\renewcommand{\parttitle}{Résumé}
@@ -44,7 +44,12 @@
 
 
 % CORPS DU DOCUMENT
-
+\input{report/Q1}
+\input{report/Q2}
+\input{report/Q3}
+\input{report/Q4}
+\input{report/Q5}
+\input{report/Q6}
 
 
 
