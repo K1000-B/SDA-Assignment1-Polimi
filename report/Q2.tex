@@ -1,0 +1,99 @@
+\section*{Control Effectiveness Computation}
+
+The control effectiveness is defined as $E_C = \frac{L}{L_R}$. The total lift is obtained by spanwise integration:
+\begin{align}
+L = \int_0^b &L'(y)\,dy
+= q c \left(
+\int_0^b C_{L/\alpha}\,
+\underbrace{\theta(y)}_{\frac{y}{b} \phi_\theta}
+dy
++ \int_{b-b_a}^{b} C_{L/\beta}\,\beta\,dy
+\right) \nonumber \\[8pt]
+&\boxed{L = \underbrace{q c b_a C_{L/\beta}\,\beta}_{\displaystyle L_R\ \text{(Rigid wing)}}
+\;+\;
+\underbrace{q c \frac{b C_{L/\alpha}}{2}\,\phi_\theta}_{\displaystyle L_E\ \text{(Elastic torsion)}}}
+\end{align}
+
+\vspace{0.5cm}
+
+We need to determine $\phi_\theta$. From the first question, we have :
+\begin{equation}
+\begin{aligned}
+\left( \mathbf{K}_S - q \mathbf{K}_A \right)
+\begin{Bmatrix}
+\phi_w \\
+\phi_\theta
+\end{Bmatrix}
+&= q \beta \mathbf{F}_a
+\quad &
+\text{where we define } \mathbf{K}_{\mathrm{TOT}} &= \mathbf{K}_S - q \mathbf{K}_A
+\end{aligned}
+\end{equation}
+
+For $q < q_D$, $\mathbf{K}_{\mathrm{TOT}}$ is invertible:
+\begin{equation}
+\mathbf{K}_{\mathrm{TOT}}^{-1}
+=
+\frac{1}{\det(\mathbf{K}_{\mathrm{TOT}})}
+\begin{bmatrix}
+K_{\mathrm{TOT},22} & -K_{\mathrm{TOT},12} \\
+-K_{\mathrm{TOT},21} & K_{\mathrm{TOT},11}
+\end{bmatrix}
+\end{equation}
+
+Where $\det(\mathbf{K}_{\mathrm{TOT}})$ is defined at equation \eqref{eq:det_KTOT}. Thus:
+\begin{equation}
+\begin{Bmatrix}
+\phi_w \\
+\phi_\theta
+\end{Bmatrix}
+=
+q \beta \mathbf{K}_{\mathrm{TOT}}^{-1} \mathbf{F}_a
+\end{equation}
+
+The aileron influence load vector $\mathbf{F}_a$ is defined at \eqref{eq:Fa}. From matrix multiplication:
+\begin{equation}
+\phi_\theta
+=
+\frac{q \beta}{\det(\mathbf{K}_{\mathrm{TOT}})}
+\left(
+K_{\mathrm{TOT},11} F_{a2}
+-
+K_{\mathrm{TOT},21} F_{a1}
+\right)
+\end{equation}
+
+\vspace{0.5cm}
+
+Substituting into the lift expression:
+\begin{equation}
+L =q c \beta \left(
+b_a C_{L/\beta}\,
++
+ \frac{b C_{L/\alpha}}{2}
+\cdot
+\frac{q }{\det(\mathbf{K}_{\mathrm{TOT}})}
+\left(
+K_{\mathrm{TOT},11} F_{a2}
+-
+K_{\mathrm{TOT},21} F_{a1}
+\right) \right)
+\end{equation}
+
+Dividing by $L_R$ gives the control effectiveness $E_C$:
+\begin{equation}
+\boxed{
+E_C
+=
+1
++
+q \cdot \frac{b}{b_a}\cdot \frac{C_{L/\alpha}}{C_{L/\beta}}
+\cdot
+\frac{1}{2 \det(\mathbf{K}_{\mathrm{TOT}})} \cdot 
+\left(
+K_{\mathrm{TOT},11} F_{a2}
+-
+K_{\mathrm{TOT},21} F_{a1}
+\right)
+}
+\end{equation}

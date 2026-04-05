@@ -187,6 +187,7 @@ a lift contribution and a pitching moment contribution:
 \end{align}
 
 \begin{equation}
+    \label{eq:Fa}
 \boxed{
 \delta W_A^a = \delta\boldsymbol{\phi}^T\,q\beta\,\mathbf{F}_a
 }, \qquad
@@ -194,6 +195,10 @@ a lift contribution and a pitching moment contribution:
 \begin{Bmatrix}
 C_{L/\beta}\cdot\dfrac{b^3-(b-b_a)^3}{3b} \\[8pt]
 \left(e\,C_{L/\beta}+c\,C_{m/\beta}\right)\dfrac{b^2-(b-b_a)^2}{2}
+\end{Bmatrix} 
+=\begin{Bmatrix}
+F_{a1} \\
+F_{a2}
 \end{Bmatrix}
 \end{equation}
 
@@ -459,6 +464,7 @@ K_{S_1} = \frac{4EJ}{b^3} + \frac{EA\,z_A^3}{b^4}\,\frac{\cos^4\gamma}{\sin\gamm
 
 For divergence, the condition is: $\det\!\left(\mathbf{K}_S - q_D\,\mathbf{K}_A\right) = 0$. Expanding the determinant:
 \begin{equation}
-K_{S_1}K_{S_2} - q_D\,K_{S_1}\,K_{A_2} - K_{S_{12}}^2 + q_D\,K_{S_{12}}\,K_{A_{1}} = 0 \quad \Rightarrow \quad
-\boxed{\textcolor{red!90!black}{q_D = \frac{K_{S_1}\,K_{S_2} - (K_{S_{12}})^2}{K_{S_1}\,K_{A_2} - K_{S_{12}}\,K_{A_{12}}}}}
+    \label{eq:det_KTOT}
+\boxed{\det\!\left(\mathbf{K}_S - q_D\,\mathbf{K}_A\right) = K_{S_1}K_{S_2} - q_D\,K_{S_1}\,K_{A_2} - K_{S_{12}}^2 + q_D\,K_{S_{12}}\,K_{A_{1}}} = 0 \quad \Rightarrow \quad
+\boxed{\textcolor{red!90!black}{q_D = \frac{K_{S_1}\,K_{S_2} - (K_{S_{12}})^2}{K_{S_1}\,K_{A_2} - K_{S_{12}}\,K_{A_{1}}}}}
 \end{equation}
