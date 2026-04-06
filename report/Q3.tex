@@ -1,0 +1,62 @@
+\renewcommand{\parttitle}{Wing deformed shape -- Strut effect}
+\section*{\parttitle}
+
+Compare wing deformation for $\beta_0 = 10^\circ$ at $q = 0.4\,q_D^{(0)}$, where $q_D^{(0)}$ is the divergence dynamic pressure without strut.
+
+\paragraph{Displacement field.}
+\begin{equation}
+z(x,y) = w(y) - x\,\theta(y) = \left(\frac{y}{b}\right)^2 \phi_w - x\,\frac{y}{b}\,\phi_\theta
+\end{equation}
+
+\paragraph{Aeroelastic equilibrium.}
+Inverting $\mathbf{K}_{\mathrm{TOT}}\{\phi_w,\,\phi_\theta\}^\top = q\beta\,\mathbf{F}_a$ gives
+\begin{align}
+\phi_w &= \frac{q\beta}{\det\mathbf{K}_{\mathrm{TOT}}}
+\left(K_{22}F_{a1} - K_{12}F_{a2}\right), \\
+\phi_\theta &= \frac{q\beta}{\det\mathbf{K}_{\mathrm{TOT}}}
+\left(K_{11}F_{a2} - K_{21}F_{a1}\right),
+\end{align}
+hence
+\begin{equation}
+    \boxed{ z(x,y) = \frac{q\beta}{\det\mathbf{K}_{\mathrm{TOT}}}\frac{y}{b}
+\left[\frac{y}{b}\left(K_{22}F_{a1}-K_{12}F_{a2}\right)
+- x\left(K_{11}F_{a2}-K_{21}F_{a1}\right)\right].}
+\end{equation}
+
+\paragraph{Configurations compared.}
+\begin{itemize}
+  \item \textbf{With strut:} full structural model;
+  \item \textbf{Without strut:} strut axial stiffness set to $\mathrm{EA}=0$.
+\end{itemize}
+
+% The reference divergence pressure \(q_D^{(0)}\) is first computed for the configuration without strut effect.  
+% Then, for
+% \[
+% q = 0.4\,q_D^{(0)},
+% \qquad
+% \beta = \beta_0 = 10^\circ,
+% \]
+% the displacement field \(z(x,y)\) is evaluated in both cases over the wing domain
+% \begin{equation}
+% x \in \left[-\frac{c}{2},\,\frac{c}{2}\right],
+% \qquad
+% y \in [0,b],
+% \end{equation}
+% while neglecting the local aileron-zone correction.
+
+% \paragraph{Comparison metrics.}
+% The comparison can be performed by plotting:
+% \begin{enumerate}
+%     \item the 3D deformed surface \(z_{\mathrm{strut}}(x,y)\),
+%     \item the 3D deformed surface \(z_{\mathrm{no\,strut}}(x,y)\),
+%     \item either the difference
+%     \[
+%     \Delta z(x,y) = z_{\mathrm{strut}}(x,y) - z_{\mathrm{no\,strut}}(x,y),
+%     \]
+%     or the ratio
+%     \[
+%     R(x,y) = \frac{z_{\mathrm{no\,strut}}(x,y)}{z_{\mathrm{strut}}(x,y)}.
+%     \]
+% \end{enumerate}
+
+% In addition, 2D sections at several chordwise locations \(x\) may be plotted in order to better visualize the effect of the strut along the span.
