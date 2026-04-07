@@ -43,12 +43,16 @@
 ## Build — Report
 
 ```bash
-cd report
 latexmk -pdf -interaction=nonstopmode main.tex
+```
+
+## Build — Images And Comments
+
+```bash
+latexmk -pdf -interaction=nonstopmode main_comments.tex
 ```
 
 ## License
 
 - **Code** (`code/`): [MIT](LICENSE-CODE)
 - **Report** (`report/`): [CC BY-NC 4.0](LICENSE-REPORT)
-

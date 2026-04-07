@@ -1,0 +1,103 @@
+\renewcommand{\parttitle}{Images and Comments}
+
+\section*{Influence of strut position on divergence}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{report/img/qD_vs_xB_gamma15.png}
+\caption{Divergence dynamic pressure vs.\ strut position $x_B$ for $\gamma = 15^\circ$.}
+\label{fig:qD_xB_gamma15}
+\end{figure}
+
+Figure~\ref{fig:qD_xB_gamma15} shows that $q_D$ is highly sensitive to $x_B$. A vertical asymptote appears at $x_B \simeq -0.2147\ \mathrm{m}$. To its right, divergence occurs at positive dynamic pressure and $q_D$ drops rapidly as $x_B$ approaches the elastic axis, remaining finite there ($q_D \approx 9.7\times10^3\ \mathrm{Pa}$). To its left, no positive $q_D$ exists: the strut introduces sufficient flexural--torsional stabilization to suppress static divergence entirely.
+
+\paragraph{Limits of the no-divergence region.}
+This region suppresses static divergence only within the present linear model and provides no guarantee against flutter or control reversal. Structurally, such placement may increase strut loads, impose mass penalties, or introduce buckling risk. Sensitivity to geometric tolerances is also a concern near the asymptotic boundary. A more complete nonlinear aeroelastic analysis is required to validate these conclusions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% ============================================================
+\section*{1. Control Effectiveness}
+% ============================================================
+
+The control effectiveness is defined as:
+
+\begin{equation}
+    \boxed{E_C(q) = 1 + q\,\frac{b}{b_a}\,\frac{C_{L\alpha}}{C_{L\beta}}
+    \cdot \frac{K_{T11}\,F_{a2} - K_{T21}\,F_{a1}}{2\,\det\mathbf{K}_\text{TOT}(q)}}
+\end{equation}
+
+where $\mathbf{K}_\text{TOT}(q)$ is the total stiffness matrix (structural + aerodynamic).
+The \textbf{control reversal pressure} $q_R$ is defined by:
+
+\begin{equation}
+    E_C(q_R) = 0, \qquad E_C(q) < 0 \;\text{ for }\; q > q_R
+\end{equation}
+
+% ============================================================
+\section*{2. Singularity at Divergence}
+% ============================================================
+
+The divergence pressure $q_D$ satisfies $\det\mathbf{K}_\text{TOT}(q_D) = 0$,
+which creates a singularity in $E_C$:
+
+\begin{equation}
+    E_C(q) \;\xrightarrow{q \to q_D^\pm}\; \pm\infty
+\end{equation}
+
+This produces a \textbf{spurious sign change} of $E_C$ at $q_D$,
+indistinguishable numerically from a physical zero crossing.
+Naive root-finding (e.g.\ \texttt{fzero} over a single interval) therefore
+fails, locking onto $q_D$ instead of $q_R$.
+
+Two physically distinct configurations arise depending on strut position $x_B$:
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Case & Condition & Behaviour of $E_C$ \\
+\midrule
+$q_R < q_D$ & strut far forward & crosses $0$ from $+$ to $-$ before $q_D$ \\
+$q_R > q_D$ & strut near EA    & crosses $0$ from $-$ to $+$ after $q_D$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ============================================================
+\section*{3. Numerical Strategy}
+% ============================================================
+
+The domain is split into two segments that \emph{exclude} $q_D$:
+
+\begin{equation}
+    \mathcal{S}_1 = \bigl[0,\; q_D - \delta\bigr], \qquad
+    \mathcal{S}_2 = \bigl[q_D + \delta,\; 50\,q_D\bigr],
+    \qquad \delta = 0.1\,q_D
+\end{equation}
+
+On each segment, $E_C$ is evaluated on a uniform grid of $N = 30{,}000$ points.
+Points where $|E_C| > 10^3$ are discarded (singularity filter).
+Consecutive valid points with an index gap $> 5$ are skipped (NaN cluster rejection).
+
+The root is accepted according to:
+
+\begin{itemize}
+    \item \textbf{Case 1} — $q_R < q_D$: first $+\to-$ crossing in $\mathcal{S}_1$
+    \item \textbf{Case 2} — $q_R > q_D$: first $-\to+$ crossing in $\mathcal{S}_2$,
+          provided $E_C < 0$ on the entire interval $[q_D+\delta,\; q_R]$
+          (rules out the spurious post-singularity jump)
+\end{itemize}
+
+Each candidate bracket is refined by \texttt{fzero} to tolerance $\varepsilon = 10^{-10}$.
+
