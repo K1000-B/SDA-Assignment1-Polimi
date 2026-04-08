@@ -2,14 +2,15 @@
 
 \section*{Influence of strut position on divergence}
 \noindent
-\begin{minipage}[c]{0.54\textwidth}
+\begin{minipage}[c]{0.48\textwidth}
 \centering
 \includegraphics[width=\textwidth]{report/img/qD_vs_xB_gamma15.png}
 \captionof{figure}{$q_D$ vs.\ $x_B$ for $\gamma=15^\circ$.}
 \label{fig:qD_xB_gamma15}
 \end{minipage}%
 \hfill%
-\begin{minipage}[c]{0.43\textwidth}
+\begin{minipage}[c]{0.5\textwidth}
+    \noindent\small
 $q_D$ is highly sensitive to $x_B$. A vertical asymptote at $x_B\simeq-0.2147\ \mathrm{m}$ separates two regimes:
 \begin{itemize}
     \item[$\bullet$] \textbf{Right:} divergence at positive $q_D$, dropping rapidly toward the elastic axis ($q_D\approx9.7\times10^3\ \mathrm{Pa}$).
@@ -21,7 +22,8 @@ $q_D$ is highly sensitive to $x_B$. A vertical asymptote at $x_B\simeq-0.2147\ \
 
 \section*{Influence of \texorpdfstring{$\gamma$}{gamma} on the control effectiveness}
 \begin{figure}[htbp]
-\begin{minipage}[c]{0.43\textwidth}
+\begin{minipage}[c]{0.48\textwidth}
+    \noindent\small
 $x_B$ fixed; $E_C=L/L_R$ with $E_C=1$ rigid limit, $E_C>1$ amplification, $E_C<0$ reversal.
 All curves start at $E_C=1$. Three regimes:
 \begin{itemize}
@@ -32,7 +34,7 @@ All curves start at $E_C=1$. Three regimes:
 $E_C\sim[\det\mathbf{K}_{\mathrm{TOT}}]^{-1}$; negative branch past divergence is a mathematical artefact. $\gamma$ controls sign and magnitude of aeroelastic feedback: low $\gamma\to$ favorable amplification (divergence governs); high $\gamma\to$ early control reversal.
 \end{minipage}
 \hfill
-\begin{minipage}[c]{0.54\textwidth}
+\begin{minipage}[c]{0.48\textwidth}
 \centering
 \includegraphics[width=\textwidth]{report/img/EC_vs_q_gamma.png}
 \captionof{figure}{$E_C$ vs.\ $q$ for several $\gamma$, $x_B$ fixed.}
@@ -43,7 +45,9 @@ $E_C\sim[\det\mathbf{K}_{\mathrm{TOT}}]^{-1}$; negative branch past divergence i
 
 \section*{Comparison of the deformed shape with and without the strut}
 
-\noindent Config: $x_B=0.10\ \mathrm{m}$, $\beta_0=10^\circ$, $q=0.4\,q_{D,0}$ (subcritical -- differences attributable to strut stiffening, not instability proximity). $\delta_z$ interpreted only for $y\ge y_{\min}=4.31\ \mathrm{m}$ ($\approx30.8\%\,b$), defined as the first station where the absolute gap at $x=c/4$ reaches $10\%$ of its tip value, to avoid the root singularity ($z_\mathrm{ns}\to0$).\\[0.5cm]
+\noindent Config: $x_B=0.10\ \mathrm{m}$, $\beta_0=10^\circ$, $q=0.4\,q_{D,0}$ (subcritical -- differences attributable to strut stiffening, not instability proximity). $\delta_z$ interpreted only for $y\ge y_{\min}=4.31\ \mathrm{m}$ ($\approx30.8\%\,b$), defined as the first station where the absolute gap at $x=c/4$ reaches $10\%$ of its tip value, to avoid the root singularity ($z_\mathrm{ns}\to0$).\\
+
+\noindent Both configurations share the same bending--torsion pattern (zero at root, increasing toward tip); the strut reduces amplitude without altering shape: \\[0.5cm]
 \begin{minipage}[c]{0.75\textwidth}
 \centering
 % Row 1
@@ -78,18 +82,43 @@ $E_C\sim[\det\mathbf{K}_{\mathrm{TOT}}]^{-1}$; negative branch past divergence i
 \begin{minipage}[c]{0.22\textwidth}
 \small
 
-Both configurations share the same bending--torsion pattern (zero at root, increasing toward tip); the strut reduces amplitude without altering shape: \\
 
-1) $\delta_z\in \sim [50\%,90\%]$ over valid span -- strut wing is $\tfrac{1}{4}$--$\tfrac{1}{3}$ as deformed as no-strut reference.\\
+1) $\delta_z\in \sim [55\%,95\%]$ over valid span -- strut wing is $\tfrac{1}{4}$--$\tfrac{1}{3}$ as deformed as no-strut reference.\\
 
-2) Along elastic axis ($x=0$): $z=(y/b)^2\phi_w$, $\delta_z\approx70\%$ -- dominant bending reduction.\\
+2) Along elastic axis ($x=0$): $z=(y/b)^2\phi_w$, $\delta_z\approx73\%$ -- dominant bending reduction.\\
 
 3) Chordwise variation of $\delta_z$ consistent with torsional term $-x(y/b)\phi_\theta$ -- strut simultaneously stiffens bending and torsion.\\
 
 \end{minipage}
 
+\section*{Effect of the strut on the reversal dynamic pressure}
 
+\noindent Physical reversal: first genuine zero of $E_C$ with $0<q_R<q_D$; sign changes near divergence singularity are not physical reversals.
 
+\vspace{0.3em}
+\noindent
+\begin{minipage}[t]{0.32\textwidth}
+\includegraphics[width=\linewidth]{report/img/EC_vs_q_xB_gamma15.png}
+\centerline{\small\textit{$E_C$ vs.\ $q$, several $x_B$.}}
+\end{minipage}%
+\hfill%
+\begin{minipage}[t]{0.32\textwidth}
+\includegraphics[width=\linewidth]{report/img/qR_qD_vs_xB_gamma15.png}
+\centerline{\small\textit{$q_R$, $q_D$ vs.\ $x_B$.}}
+\end{minipage}%
+\hfill%
+\begin{minipage}[t]{0.32\textwidth}
+\includegraphics[width=\linewidth]{report/img/qR_map_xB_gamma.png}
+\centerline{\small\textit{Map $q_R(x_B,\gamma)$.}}
+\end{minipage}
+
+\vspace{0.3em}
+\noindent\small
+\textbf{$x_B\ge0$:} $E_C$ stays positive up to divergence -- no physical reversal; apparent sign changes near asymptotes are not genuine $q_R$.
+\textbf{$x_B<0$:} strut modifies bending--torsion coupling; genuine $q_R$ may appear.
+\textbf{Combined $q_R$/$q_D$:} beneficial configuration must raise both thresholds; physical $q_R$ exists only over a limited band of negative $x_B$.
+\textbf{Map:} $q_R$ confined near EA/AC for $x_B<0$; increasing $\gamma$ raises $q_R$ -- stronger coupling delays reversal.
+\textbf{Design objective:} maximize $q_R$ or suppress reversal within flight envelope while keeping $q_D$ high; strut beneficial only for forward attachment with sufficiently large $\gamma$.
 
 % % ============================================================
 % \section*{1. Control Effectiveness}
