@@ -1,0 +1,75 @@
+\renewcommand{\parttitle}{Convergence of $q_D$ with respect to the number of Ritz shape functions}
+\section*{\parttitle}
+
+\newcommand{\vect}[1]{\underline{\mathbf{#1}}}
+\newcommand{\tenseur}[1]{\underline{\underline{\mathbf{#1}}}}
+
+To study convergence of the Ritz approximation, bending and torsional displacements are expanded on a hierarchical polynomial basis that satisfies the clamped-root conditions $w(0)=w'(0)=\theta(0)=0$ naturally:
+\begin{equation}
+w(y) = \sum_{i=1}^{N} \left(\frac{y}{b}\right)^{i+1}\phi_{w_i }= \vect{N}_w^{T}\vect{\phi}_w, \qquad
+\vect{N}_w = \begin{Bmatrix}\eta^2 & \cdots & \eta^{N+1}\end{Bmatrix}^T \\
+\theta(y) = \sum_{i=1}^{N} \left(\frac{y}{b}\right)^{i}\phi_{\theta_i} = \vect{N}_\theta^{T}\vect{\phi}_\theta, \qquad
+\vect{N}_\theta = \begin{Bmatrix}\eta & \cdots & \eta^{N}\end{Bmatrix}^T, \qquad \eta = \frac{y}{b}.
+\end{equation}
+Increasing $N$ directly enriches the approximation space without modifying the lower-order terms.
+
+\subsection*{Internal virtual work}
+
+Substituting the Ritz ansatz into $\delta W_i = \int_0^b \delta w''\,EJ\,w''\,dy + \int_0^b \delta\theta'\,GJ\,\theta'\,dy$ and factoring out the generalized DOFs:
+\begin{equation}
+\delta W_i = \delta\vect{\Phi}^T \tenseur{K}_{\mathrm{WSTIF}}^{(N)} \vect{\Phi}, \qquad
+\tenseur{K}_{\mathrm{WSTIF}}^{(N)} = \begin{bmatrix}\tenseur{K}_w^{(N)} & \tenseur{0} \\ \tenseur{0} & \tenseur{K}_\theta^{(N)}\end{bmatrix}, \qquad
+\vect{\Phi} = \begin{Bmatrix}\vect{\phi}_w \\ \vect{\phi}_\theta\end{Bmatrix},
+\end{equation}
+where the stiffness sub-matrices are
+\begin{equation}
+\tenseur{K}_w^{(N)} = \int_0^b EJ\,\vect{N}_w''\vect{N}_w''{}^T\,dy, \qquad
+\tenseur{K}_\theta^{(N)} = \int_0^b GJ\,\vect{N}_\theta'\vect{N}_\theta'{}^T\,dy,
+\end{equation}
+with
+\begin{equation}
+\vect{N}_w'' = \frac{1}{b^2}\begin{Bmatrix}2 & 6\eta & \cdots & (i+1)i\,\eta^{i-1} & \cdots & (N+1)N\,\eta^{N-1}\end{Bmatrix}^T, \qquad
+\vect{N}_\theta' = \frac{1}{b}\begin{Bmatrix}1 & 2\eta & \cdots & i\,\eta^{i-1} & \cdots & N\eta^{N-1}\end{Bmatrix}^T.
+\end{equation}
+
+\subsection*{Aerodynamic virtual work}
+
+The AC displacement is $h_{AC} = \vect{N}_w^T\vect{\phi}_w + e\,\vect{N}_\theta^T\vect{\phi}_\theta$ and strip lift reads $L'=qcC_{L/\alpha}\,\vect{N}_\theta^T\vect{\phi}_\theta$. Expanding $\delta W_{e,A}^w = \int_0^b \delta h_{AC}\,L'\,dy$ gives:
+\begin{equation}
+\delta W_{e,A}^{w} = \delta\vect{\Phi}^T\,q\,\tenseur{K}_A^{(N)}\,\vect{\Phi}, \qquad
+\tenseur{K}_A^{(N)} = \begin{bmatrix}\tenseur{0} & \tenseur{K}_{A1}^{(N)} \\ \tenseur{0} & \tenseur{K}_{A2}^{(N)}\end{bmatrix},
+\end{equation}
+\begin{equation}
+\tenseur{K}_{A1}^{(N)} = \int_0^b cC_{L/\alpha}\,\vect{N}_w\vect{N}_\theta^T\,dy, \qquad
+\tenseur{K}_{A2}^{(N)} = \int_0^b ecC_{L/\alpha}\,\vect{N}_\theta\vect{N}_\theta^T\,dy.
+\end{equation}
+
+\subsection*{Strut contribution}
+
+The strut stiffness $K_{\mathrm{STR}} = (EA/z_A)\sin^3\gamma$ is unchanged. The attachment-point displacement
+\begin{equation}
+h_B = \vect{N}_w^T(\eta_B)\vect{\phi}_w - x_B\,\vect{N}_\theta^T(\eta_B)\vect{\phi}_\theta, \qquad \eta_B = \frac{z_A}{b\tan\gamma},
+\end{equation}
+enters $\delta W_{\mathrm{STR}} = -\delta h_B\,K_{\mathrm{STR}}\,h_B$. Substituting the Ritz approximation and expanding:
+\begin{equation}
+\boxed{\delta W_{\mathrm{STR}} = -\delta\vect{\Phi}^T\,\tenseur{K}_{\mathrm{STR}}^{(N)}\,\vect{\Phi}}, \qquad
+\tenseur{K}_{\mathrm{STR}}^{(N)} = K_{\mathrm{STR}}
+\begin{bmatrix}
+\vect{N}_w(\eta_B)\vect{N}_w^T(\eta_B) & -x_B\,\vect{N}_w(\eta_B)\vect{N}_\theta^T(\eta_B) \\[4pt]
+-x_B\,\vect{N}_\theta(\eta_B)\vect{N}_w^T(\eta_B) & x_B^2\,\vect{N}_\theta(\eta_B)\vect{N}_\theta^T(\eta_B)
+\end{bmatrix}.
+\end{equation}
+
+\subsection*{Aeroelastic system and convergence criterion}
+
+Assembling all contributions, $\tenseur{K}_S^{(N)} = \tenseur{K}_{\mathrm{WSTIF}}^{(N)} + \tenseur{K}_{\mathrm{STR}}^{(N)}$, the aeroelastic eigenproblem reads
+\begin{equation}
+\Bigl[\tenseur{K}_S^{(N)} - q\,\tenseur{K}_A^{(N)}\Bigr]\vect{\Phi} = \vect{0}.
+\end{equation}
+The divergence pressure and convergence indicator are
+\begin{equation}
+\boxed{q_D^{(N)} = \min\Bigl\{q>0\;\Big|\;\det\!\bigl(\tenseur{K}_S^{(N)}-q\,\tenseur{K}_A^{(N)}\bigr)=0\Bigr\},}
+\qquad
+\varepsilon_N = \left|\frac{q_D^{(N)}-q_D^{(N-1)}}{q_D^{(N-1)}}\right|.
+\end{equation}
+Rapid stabilization of $q_D^{(N)}$ with $N$ validates the polynomial Ritz basis.

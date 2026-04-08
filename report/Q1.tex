@@ -12,47 +12,6 @@ The Ritz--Galerkin method is applied to perform a static aeroelastic analysis.
 \section*{\parttitle}
 % ============================================================
 
-% \subsection*{Shape Functions}
-
-% The wing is clamped at the root. Essential boundary conditions:
-% \begin{align*}
-%     &\text{For } w: \quad w(0) = 0 \quad \textit{(No displacement)},\quad w'(0) = 0 \quad \textit{(No bending)} \\
-%     &\text{For } \theta: \quad \theta(0) = 0 \quad \textit{(No rotation)}
-% \end{align*}
-
-% We approximate the problem with the Ritz--Galerkin approach:
-% \begin{equation}
-%     w(y,t) = N_w(y)\,\phi_w(t), \qquad \theta(y,t) = N_\theta(y)\,\phi_\theta(t)
-% \end{equation}
-
-% To comply with the essential boundary conditions, the shape functions must satisfy:
-% \begin{itemize}
-%     \item $N_w$: at least 2nd order (2 BCs to satisfy)
-%     \item $N_\theta$: at least 1st order (1 BC to satisfy)\\
-% \end{itemize}
-
-% For $N_w$, we take a parabolic shape function:
-% \[
-% N_w(y) = A_w\left(\frac{y}{b}\right)^2 + B_w\left(\frac{y}{b}\right) + C_w
-% \]
-
-% Applying BCs: $N_w(0)=0 \Rightarrow C_w=0$, $N_w'(0)=0 \Rightarrow B_w=0$ ; Normalizing: $N_w(b)=1 \Rightarrow A_w = 1$.
-
-% \begin{equation}
-% \boxed{N_w(y) = \left(\frac{y}{b}\right)^2 \implies w(y,t) = \left(\frac{y}{b}\right)^2 \phi_w(t)}
-% \end{equation}
-
-% For $N_\theta$, we take an affine shape function:
-% \[
-% N_\theta(y) = A_\theta \frac{y}{b} + B_\theta 
-% \]
-
-% Applying BC: $N_\theta(0)=0 \Rightarrow B_\theta=0$ ; Normalizing $N_\theta(b)=1 \Rightarrow A_\theta = 1$.
-
-% \begin{equation}
-% \boxed{N_\theta(y) = \frac{y}{b} \implies \theta(y,t) = \frac{y}{b}\,\phi_\theta(t)}
-% \end{equation}
-
 \subsection*{Shape Functions}
 
 Root clamp imposes $w(0)=w'(0)=\theta(0)=0$. The Ritz ansatz
@@ -99,25 +58,6 @@ Since we are interested in the divergence dynamic pressure $q_D$, we can neglect
 \boxed{\delta W_e = \delta W_{\text{A}}^{\text{w}} + \delta W_{\text{A}}^{\text{a}} + \delta W_{\mathrm{STR}}}
 \]
 
-% \paragraph{(1) Wing aerodynamic virtual work $\delta W_A^w$}
-
-% The virtual displacement of the AC in $z$-direction which is kinematically admissible is: $\boxed{h_{AC}(y) = w(y) + e\,\theta(y)}$ ; The lift per unit span (perturbation only, so $\alpha_{\mathrm{eff}} = \theta$ and $C_{L_0}=0$ so $C_L = C_{L/\alpha}\,\theta$): $\boxed{L'_w(y) = q\, c\, C_{L/\alpha}\, \theta(y)}$.
-% \begin{align}
-% \delta W_A^w &= \int_0^b \delta h_{AC}\, L'_w(y)\, dy = \int_0^b \delta(w + e\theta)\, q\, c\, C_{L/\alpha}\, \theta\, dy \\
-% &= \int_0^b \delta\phi_w \left(\frac{y}{b}\right)^2 q\, c\, C_{L/\alpha}\, \frac{y}{b}\,\phi_\theta\, dy
-% + \int_0^b \delta\phi_\theta \frac{y}{b}\, e\, q\, c\, C_{L/\alpha}\, \frac{y}{b}\,\phi_\theta\, dy
-% \end{align}
-
-% Evaluating the integrals:
-% \begin{equation}
-% \boxed{
-% \textcolor{red!90!black}{
-% \delta W_A^w =\delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^{T}\, q\,\mathbf{K}_A \,\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}}} \quad \text{where }
-% \mathbf{K}_A =\begin{bmatrix}0 & \dfrac{c b}{4}\,C_{L/\alpha} \\[6pt]0 & \dfrac{e c b}{3}\,C_{L/\alpha}\end{bmatrix}
-% \end{equation}
-
-% \noindent
-% \(\mathbf{K}_A = [K_{A_{ij}}]\) is the aerodynamic stiffness matrix, with components denoted \(K_{A_{ij}}\).
 
 \paragraph{(1) Wing aerodynamic virtual work $\delta W_A^w$}
 
@@ -143,37 +83,6 @@ $L'_w = q\,c\,C_{L/\alpha}\,\theta$ (perturbation, $\alpha_\mathrm{eff}=\theta$,
 
 $\mathbf{K}_A$ is the aerodynamic stiffness matrix.
 
-% \paragraph{(2) Aileron aerodynamic virtual work $\delta W_A^a$}
-
-% Although the aileron influence is not required for the computation of the divergence dynamic pressure -- since the equation of motion is studied without forcing terms -— we still derive it in case it becomes necessary later in the assignment. The aileron spans from $y = b - b_a$ to $y = b$, with deflection $\beta$. The pitching moment coefficient is:
-% \begin{align*}
-% C_{m_{AC}} = \cancelto{0}{C_{m_0}} &+ C_{m/\beta}\,\beta \quad \textit{(perturbation analysis)}\\
-% \delta W_A^a = \int_{b-b_a}^{b} \delta h_{AC}\, L'_{\mathrm{a}}(y)\, dy + \int_{b-b_a}^{b} \delta\theta\, M'_{AC,\mathrm{a}}(y)\, dy &= \int_{b-b_a}^{b} \delta(w+e\theta)\, q\, c\, C_{L/\beta}\,\beta\, dy
-% + \int_{b-b_a}^{b} \delta\theta\, q\, c^2\, C_{m/\beta}\,\beta\, dy
-% \end{align*}
-
-% Evaluating directly in matrix form :
-% % \begin{align}
-% % \delta W_A^A &= \delta\phi_w\, q\, e\, C_{L/\beta}\,\frac{1}{b^2}\left[\frac{b^3-(b-b_a)^3}{3}\right]\beta \\
-% % &+ \delta\phi_\theta\, q\, e\, c\, C_{L/\beta}\,\frac{1}{b}\left[\frac{b^2-(b-b_a)^2}{2}\right]\beta \\
-% % &+ \delta\phi_\theta\, q\, c^2\, C_{m/\beta}\,\frac{1}{b}\left[\frac{b^2-(b-b_a)^2}{2}\right]\beta
-% % \end{align}
-% \begin{equation}
-% \boxed{
-% \textcolor{red!90!black}{
-% \delta W_A^a = \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
-% q \beta \mathbf{F}_a
-% }
-% }
-% \quad
-% \text{where } 
-% \mathbf{F}_a =
-% \frac{c}{b}
-% \begin{Bmatrix}
-% C_{L/\beta}\cdot\dfrac{1}{b}\left[\dfrac{b^3-(b-b_a)^3}{3}\right] \\[6pt]
-% \left(e\,C_{L/\beta} + c\,C_{m/\beta}\right)\left[\dfrac{b^2-(b-b_a)^2}{2}\right]
-% \end{Bmatrix}
-% \end{equation}
 
 \paragraph{(2) Aileron aerodynamic virtual work $\delta W_A^a$}
 
@@ -277,44 +186,6 @@ F_{a2}
 \end{figure}
 
 
-% From PCVW applied in the axial direction of the strut:
-% \[
-% F_S = -\frac{EA}{\ell}\, u, \quad \ell = \frac{z_A}{\sin\gamma}, \quad u = h_B\sin\gamma , \quad F_{Sz} = F_S\sin(\gamma)
-% \]
-
-
-% \begin{equation}
-% \boxed{\textcolor{red!90!black}{F_{Sz} = -\underbrace{\frac{EA}{z_A}\sin^3(\gamma)}_{K_{\mathrm{STR}}} h_B}}
-% \end{equation}
-
-% We have then : $\delta W_{\mathrm{STR}} = \delta h_B \, \cdot (-K_{\mathrm{STR}})\,  \cdot h_B$. We need to define $h_B$ : 
-
-% \begin{align*}
-%     \left.\begin{matrix}
-% h_B(x_B=0)=w(y_B) \\ h_B(x_B=\pm \frac{c}{2})=w(y_B) \mp \frac{c}{2} \theta(y_B)
-% \end{matrix}\right\}\to h_B(x_B)&=w(y_B)- x_B \, \theta (y_B) = \left(\frac{y_B}{b} \right)^2 \phi_w \,-\,x_B\frac{y_B}{b} \phi_\theta \\
-% &\text{where} \quad y_B = \frac{z_A}{\tan\gamma}
-% \end{align*}
-
-% Defining the normalized strut spanwise position: $\eta_B = \frac{z_A}{b\tan(\gamma)}$. The displacement at the strut attachment point B is :
-% \[
-% h_B(x_B) =  \eta_B\left[\eta_B\phi_w - x_B\phi_\theta\right]
-% \]
-
-% Then : 
-% \begin{align}
-%     \delta W_{\mathrm{STR}} =\eta_B^2 \left[\eta_B \delta \phi_w - x_B \delta\phi_\theta\right] \, \cdot (- K_{STR}) \cdot \left[\eta_B \phi_w - x_B \phi_\theta\right] 
-% \end{align}
-
-% \begin{equation}
-% \boxed{\textcolor{red!90!black}{
-% \delta W_{\mathrm{STR}} = \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
-% \cdot \left(-K_{\mathrm{STR}}\,\eta_B^2\right) \cdot
-% \begin{bmatrix} \eta_B^2 & -\eta_B x_B \\ -\eta_B x_B & x_B^2 \end{bmatrix}
-% \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}}
-% }
-% \end{equation}
-
 
 The strut axial force and its $z$-component follow from geometry ($\ell = z_A/\sin\gamma$,
 $u = h_B\sin\gamma$):
@@ -338,75 +209,6 @@ Substituting into $\delta W_\mathrm{STR} = \delta h_B\,(-K_\mathrm{STR})\,h_B$:
 \boldsymbol{\phi}
 }
 \end{equation}
-
-
-
-% % ============================================================
-% \subsection*{Application of PVW: $\delta W_i = \delta W_e$}
-% % ============================================================
-
-% \begin{equation}
-% \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T
-% \begin{bmatrix} K_w & 0 \\ 0 & K_\theta \end{bmatrix}
-% \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
-% =
-% \delta\begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}^T 
-% \left(
-% q\mathbf{K}_A \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
-% + q\,\beta\,\mathbf{F}_{\mathrm{a}}
-% - K_{\mathrm{STR}}\,\eta_B^2\begin{bmatrix}\eta_B^2 & -\eta_B x_B \\ -\eta_B x_B & x_B^2\end{bmatrix} \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
-% \right)
-% \end{equation}
-
-% With rewritting PVW and given the arbitrariness of the virtual displacements, and considering the unforced case (for $q_D$ computation, $\beta=0$):
-
-% \begin{equation}
-% \boxed{
-% \left(
-% \begin{bmatrix}
-% K_w + K_{\mathrm{STR}}\,\eta_B^4 & -K_{\mathrm{STR}}\,\eta_B^3\,x_B \\
-% -K_{\mathrm{STR}}\,\eta_B^3\,x_B & K_\theta + K_{\mathrm{STR}}\,\eta_B^2\,x_B^2
-% \end{bmatrix}
-% - q\,\mathbf{K}_A
-% \right)
-% \begin{Bmatrix}\phi_w \\ \phi_\theta\end{Bmatrix}
-% =
-% \begin{Bmatrix}0\\0\end{Bmatrix}
-% }
-% \end{equation}
-
-% This can be written compactly as $\left(\mathbf{K}_S - q_D\,\mathbf{K}_A\right)\boldsymbol{\phi} = \mathbf{0}$,
-% where $\mathbf{K}_S$ is the total structural stiffness matrix of the system. Partitioning both matrices explicitly:
-
-% \begin{equation}
-% \mathbf{K}_S =
-% \begin{bmatrix}
-% K_{S_1} & K_{S_{12}} \\
-% K_{S_{12}} & K_{S_2}
-% \end{bmatrix},
-% \qquad
-% \mathbf{K}_A =
-% \begin{bmatrix}
-% 0 & K_{A_1} \\
-% 0 & K_{A_2}
-% \end{bmatrix}
-% =
-% \begin{bmatrix}
-% 0 & \dfrac{cb}{4}\,C_{L/\alpha} \\[8pt]
-% 0 & \dfrac{ecb}{3}\,C_{L/\alpha}
-% \end{bmatrix}
-% \end{equation}
-
-% The structural stiffness coefficients are:
-
-% \begin{align}
-% K_{S_1} &= K_w + K_{\mathrm{STR}}\,\eta_B^4
-% = \frac{4EJ}{b^3} + \frac{EA\,z_A^3}{b^4}\,\frac{\cos^4\gamma}{\sin\gamma} \\[6pt]
-% K_{S_{12}} &= -K_{\mathrm{STR}}\,\eta_B^3\,x_B
-% = -\frac{EA\,z_A^2\,\cos^3\gamma\,x_B}{b^3} \\[6pt]
-% K_{S_2} &= K_\theta + K_{\mathrm{STR}}\,\eta_B^2\,x_B^2
-% = \frac{GJ}{b} + \frac{EA\,\sin\gamma\,\cos^2\gamma\,z_A\,x_B^2}{b^2}
-% \end{align}
 
 
 \subsection*{Application of PVW: $\delta W_i = \delta W_e$}
