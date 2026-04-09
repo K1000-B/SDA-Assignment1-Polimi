@@ -52,6 +52,12 @@ latexmk -pdf -interaction=nonstopmode main.tex
 latexmk -pdf -interaction=nonstopmode main_comments.tex
 ```
 
+## Build — Numerical Code
+
+```bash
+latexmk -pdf -interaction=nonstopmode main_code.tex
+```
+
 ## License
 
 - **Code** (`code/`): [MIT](LICENSE-CODE)
