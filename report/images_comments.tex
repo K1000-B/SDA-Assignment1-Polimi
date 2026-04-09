@@ -114,11 +114,19 @@ $E_C\sim[\det\mathbf{K}_{\mathrm{TOT}}]^{-1}$; negative branch past divergence i
 
 \vspace{0.3em}
 \noindent\small
-\textbf{$x_B\ge0$:} $E_C$ stays positive up to divergence -- no physical reversal; apparent sign changes near asymptotes are not genuine $q_R$.
-\textbf{$x_B<0$:} strut modifies bending--torsion coupling; genuine $q_R$ may appear.
-\textbf{Combined $q_R$/$q_D$:} beneficial configuration must raise both thresholds; physical $q_R$ exists only over a limited band of negative $x_B$.
-\textbf{Map:} $q_R$ confined near EA/AC for $x_B<0$; increasing $\gamma$ raises $q_R$ -- stronger coupling delays reversal.
-\textbf{Design objective:} maximize $q_R$ or suppress reversal within flight envelope while keeping $q_D$ high; strut beneficial only for forward attachment with sufficiently large $\gamma$.
+$\to$ \textbf{$x_B\ge0$:} $E_C$ stays positive up to divergence -- no physical reversal; apparent sign changes near asymptotes are not genuine $q_R$.
+
+\noindent\small
+$\to$ \textbf{$x_B<0$:} strut modifies bending--torsion coupling; genuine $q_R$ may appear.
+
+\noindent\small
+$\to$ \textbf{Combined $q_R$/$q_D$:} beneficial configuration must raise both thresholds; physical $q_R$ exists only over a limited band of negative $x_B$.
+
+\noindent\small
+$\to$ \textbf{Map:} $q_R$ confined near EA/AC for $x_B<0$; increasing $\gamma$ raises $q_R$ -- stronger coupling delays reversal.
+
+\noindent\small
+$\to$ \textbf{Design objective:} maximize $q_R$ or suppress reversal within flight envelope while keeping $q_D$ high; strut beneficial only for forward attachment with sufficiently large $\gamma$.
 
 
 \section*{Convergence analysis of the Ritz approximation}
@@ -139,3 +147,55 @@ $q_D^{(N)}$ drops sharply at low $N$ then converges at $q_D\approx8.014\times10^
 \end{minipage}\\
 
 \noindent\small $N=1$ overpredicts $q_D$ by $\approx22\%$: useful for trends but not quantitatively reliable. $N=3$--$4$ already excellent; $N=8$ merely confirms asymptotic convergence.
+
+\section*{Iterative redesign results}
+
+
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=\linewidth]{report/img/redesign_conv_xB_neg_0p1.png}
+\centerline{\small\textit{Convergence, $x_B=-0.1\ \mathrm{m}$.}}
+\end{minipage}%
+\hfill%
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=\linewidth]{report/img/redesign_conv_xB_pos_0p1.png}
+\centerline{\small\textit{Convergence, $x_B=+0.1\ \mathrm{m}$.}}
+\end{minipage}
+
+\vspace{2em}
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\centering\small
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+& $EJ/EJ_0$ & $GJ/GJ_0$ & $EA/EA_0$ & $\gamma^\star$ \\
+\hline
+$x_B=+0.1$ & $1.000$ & $1.565$ & $1.000$ & $22.79^\circ$ \\
+$x_B=-0.1$ & $1.000$ & $1.000$ & $1.000$ & $49.86^\circ$ \\
+\hline
+\end{tabular}
+\end{minipage}%
+\hfill%
+\begin{minipage}[t]{0.48\textwidth}
+\centering\small
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+& $q_{D,0}$ [Pa] & $q_D^\star$ [Pa] & $q_D^\star/q_{D,0}$ & $\mathcal{M}^\star$ \\
+\hline
+$x_B=+0.1$ & $6\,687$ & $9\,363$ & $1.400$ & $+0.233$ \\
+$x_B=-0.1$ & $18\,348$ & $25\,688$ & $1.400$ & $-0.661$ \\
+\hline
+\end{tabular}
+\end{minipage}
+
+\vspace{2em}
+\noindent\small
+$\to$ \textbf{$x_B=+0.1\ \mathrm{m}$:} target met by increasing $GJ$ (+56\%) and $\gamma$ (+52\%); $EJ$ and $EA$ unchanged. Mass cost $\mathcal{M}=+0.233$. The fact that $EJ$ is not modified is physically consistent: divergence is governed by torsional stiffness, so bending stiffness has no predominant effect on $q_D$. $EA$ is left unchanged as increasing it would raise the strut mass with limited benefit.\\
+
+\noindent \small
+$\to$ \textbf{$x_B=-0.1\ \mathrm{m}$:} only $\gamma$ is modified ($15^\circ\to49.86^\circ$, $\times3.32$); all stiffness parameters unchanged ; Net mass \emph{reduction} ($\mathcal{M}=-0.661$) -- the strut at higher $\gamma$ provides stronger stabilization at lower structural cost and mass cost because it is shorter.\\
+
+\noindent\small
+Forward attachment ($x_B<0$) yields a far more efficient redesign -- the target is achieved by geometry alone with a 66\% mass reduction, versus added stiffness and $+23\%$ mass for $x_B>0$.

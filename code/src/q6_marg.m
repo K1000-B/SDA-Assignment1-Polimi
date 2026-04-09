@@ -41,7 +41,7 @@ p.c          = 1;          % [m]
 p.e          = p.c/4;      % [m]
 p.gamma0_deg = 15;         % [deg]
 
-p.x_B = 0.1;               % [m]  %x_B large enough to be sure to not encounter reversal before divergence
+p.x_B = -0.1;              % [m]  
 p.z_A = 2;                 % [m] 
 
 
@@ -69,15 +69,6 @@ fprintf('============================================================\n\n');
 
 %% ------------------------------------------------------------------------
 %  3) MASS INDEX
-%  Simple relative mass indicator:
-%
-%  M = wing contribution + strut contribution
-%
-%  M = (EJ/EJ0 - 1)
-%    + (GJ/GJ0 - 1)
-%    + (EA/EA0 * sin(gamma0)/sin(gamma) - 1)
-%
-%  Baseline design has M = 0.
 %% ------------------------------------------------------------------------
 
 function M = mass_index(X, p)
@@ -98,11 +89,11 @@ end
 % Lower bounds: we do not go below the baseline values
 lb = [p.EJ0, p.GJ0, p.EA0, p.gamma0];
 
-% Upper bounds: easy to modify if needed
-ub = [3.0*p.EJ0, ...
-      3.0*p.GJ0, ...
-      3.0*p.EA0, ...
-      deg2rad(35)];
+% Upper bounds
+ub = [5.0*p.EJ0, ...
+      5.0*p.GJ0, ...
+      5.0*p.EA0, ...
+      deg2rad(60)];
 
 % Initial local steps
 step.EJ    = 0.1 * p.EJ0;      
