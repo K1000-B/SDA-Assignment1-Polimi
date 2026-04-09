@@ -1,0 +1,56 @@
+\renewcommand{\parttitle}{Iterative redesign strategy for increasing $q_D$}
+\section*{\parttitle}
+
+
+\subsection*{Objective} Find a configuration $\mathbf{X}=(EJ,GJ,EA,\gamma)$ minimizing a mass index $\mathcal{M}(\mathbf{X})$ subject to the requirement
+\[
+q_D(\mathbf{X})\ge q_D^{\mathrm{tar}}=1.4\,q_D(\mathbf{X}^{(0)}).
+\]
+Aerodynamic parameters, $x_B$, and $z_A$ are fixed. The target is computed once from the baseline $\mathbf{X}^{(0)}=(EJ_0,GJ_0,EA_0,\gamma_0)$ and remains unchanged throughout.
+
+\subsection*{Mass index} Since no density data is available, \underline{a normalized relative mass indicator is introduced with unit density}. The strut length is $\ell(\gamma)=z_A/\sin\gamma$, so its mass scales as $EA\,\ell(\gamma)$. The global index is
+\[
+\mathcal{M}(\mathbf{X})
+=
+\underbrace{\left(\frac{EJ}{EJ_0}-1\right)+\left(\frac{GJ}{GJ_0}-1\right)}_{\text{wing bending + torsion}}
++
+\underbrace{\frac{EA}{EA_0}\,\frac{\sin\gamma_0}{\sin\gamma}-1}_{\text{strut}},
+\]
+with $\mathcal{M}(\mathbf{X}^{(0)})=0$ by construction. Lighter admissible redesigns correspond to smaller $\mathcal{M}$.
+
+\subsection*{Search strategy} Let $\mathcal{P}=\{EJ,GJ,EA,\gamma\}$. At each iteration $k$, all 15 (4 singletons, 6 doublets, 4 triplets, 1 quadruplet) non-empty subsets $S\subset\mathcal{P}$ are explored:
+\begin{itemize}\itemsep=0pt
+    \item variables \emph{in} $S$ are varied on a discrete local grid around $\mathbf{X}^{(k)}$, with both positive and negative variations allowed within prescribed bounds; after a feasible design is found, a parameter can be reduced if another is increased more efficiently, enabling the total mass to decrease from one iteration to the next.
+
+    \item variables \emph{not in} $S$ are kept fixed at their current value.
+\end{itemize}
+
+\subsection*{Feasible set and update rule} For each subset $S$, the feasible candidates are
+\[
+\mathbf{Cand}^{(k)}_S  = \left\{\mathbf{X}\in\mathcal{N}^{(k)}_S \;\middle|\; q_D(\mathbf{X})\ge q_D^{\mathrm{tar}}\right\},
+\]
+and the lightest feasible candidate per subset is $\mathbf{Cand}^{(k)}_{S,\min} = \min_{\mathbf{X}\in\mathbf{Cand}^{(k)}_S}\mathcal{M}\!\left(\mathbf{Cand}^{(k)}_S\right)$. The global best of the iteration is
+\[
+\mathbf{Cand}^{(k)}_{\mathrm{best}}=\min_{S}\mathcal{M}\!\left(\mathbf{Cand}^{(k)}_{S, \min}\right).
+\]
+The design is updated only if a strictly lighter feasible candidate is found:
+\[
+\mathbf{X}^{(k+1)}=\mathbf{Cand}^{(k)}_{\mathrm{best}}
+\quad\text{if}\quad
+\mathcal{M}\!\left(\mathbf{Cand}^{(k)}_{\mathrm{best}}\right)<\mathcal{M}\!\left(\mathbf{X}^{(k)}\right).
+\]
+
+\subsection*{Step refinement} If no lighter feasible candidate is found at the current grid resolution, the search steps are reduced and the procedure is repeated around the same design. Large initial steps allow rapid identification of a feasible region; smaller steps then refine toward a local minimum of $\mathcal{M}$.
+
+\subsection*{Stopping criterion} The procedure stops when both conditions hold:
+\begin{enumerate}\itemsep=0pt
+    \item no lighter feasible candidate is found in any of the 15 subset searches;
+    \item all search steps have fallen below prescribed minimum values.
+\end{enumerate}
+The converged solution $\mathbf{X}^\star=(EJ^\star,GJ^\star,EA^\star,\gamma^\star)$ satisfies $q_D(\mathbf{X}^\star)\ge q_D^{\mathrm{tar}}$ and is the lightest feasible design found by the procedure.
+
+\subsection*{Conclusions} This strategy is intentionally crude (no analytical optimization, nor use of optimization laws/principles/theorems such as the KKT conditions) and purely numerical in order to exploit a maximum MATLAB.
+
+The result does not guarantee a global optimum; however, the convergence of the algorithm makes it possible to identify a configuration that minimizes the mass index while satisfying the constraint on $q_D$.
+
+It should nevertheless be emphasized that the result is not exact but rather provides an order of magnitude, due to the simplifications made in the density model and in the definition of the mass index. A different definition of the mass index would lead to a different result, although still of the same order of magnitude.
